@@ -92,14 +92,14 @@ class _ListaMensagensState extends State<ListaMensagens> {
         .collection("mensagens")
         .doc(_usuarioRemetente.idUsuario)
         .collection(_usuarioDestinatario.idUsuario)
-        .orderBy("data", descending: false)
+        .orderBy("data", descending: true)
         .snapshots();
 
     _streamMensagens = stream.listen((dados) {
       _streamController.add(dados);
-      Timer(Duration(milliseconds: 300), () {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      });
+      // Timer(Duration(milliseconds: 300), () {
+      //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      // });
     });
   }
 
@@ -179,6 +179,8 @@ class _ListaMensagensState extends State<ListaMensagens> {
 
                       return Expanded(
                           child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              reverse: true,
                               controller: _scrollController,
                               itemCount: querySnapshot.docs.length,
                               itemBuilder: (context, indice) {
