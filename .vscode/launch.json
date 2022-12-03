@@ -1,0 +1,81 @@
+{
+	"configurations": [
+		{
+			"name": "Dart",
+			"type": "dart",
+			"request": "launch",
+            "program": "lib/main.dart"
+		},
+		{
+			"name": "Storybook",
+			"type": "dart",
+			"request": "launch",
+			"program": "lib/storybook/main.dart"
+		},
+		{
+			"name": "Pixel 5",
+			"type": "dart",
+			"request": "launch",
+			"deviceId": "emulator-5554",
+			"program": "lib/main.dart"
+		},
+		{
+			"name": "iPhone SE",
+			"type": "dart",
+			"request": "launch",
+			"deviceId": "357CDB8E-2669-4E4A-B3FE-610BB343D106",
+			"program": "lib/main.dart"
+		},
+		{
+			"name": "iPhone 8",
+			"type": "dart",
+			"request": "launch",
+			"deviceId": "211D5045-2C7E-40F9-AC53-3433E4ADE497",
+			"program": "lib/main.dart"
+		},
+		{
+			"name": "iPhone 14 Pro",
+			"type": "dart",
+			"request": "launch",
+			"deviceId": "F08650E3-371C-4B5A-9432-D132F211C1B9",
+			"program": "lib/main.dart"
+		},
+		{
+			"name": "macOS",
+			"type": "dart",
+			"request": "launch",
+			"deviceId": "macos",
+			"program": "lib/main.dart"
+		},{
+			"name": "Chrome",
+			"type": "dart",
+			"request": "launch",
+			"deviceId": "chrome",
+			"program": "lib/main.dart"
+		},
+	],
+	"compounds": [
+		{
+			"name": "iPhone SE + iPhone 8",
+			"configurations": ["iPhone SE", "iPhone 8"]
+		},
+		{
+			"name": "iPhone SE + Pixel 5",
+			"configurations": ["iPhone SE", "Pixel 5"]
+		},
+		{
+			"name": "iPhone 14 Pro + Pixel 5",
+			"configurations": ["iPhone 14 Pro", "Pixel 5"]
+		},
+		{
+			"name": "All Mobile",
+			"configurations": ["iPhone SE", "iPhone 8",
+			//  "iPhone 14 Pro", 
+			 "Pixel 5"]
+		},
+		{
+			"name": "All Platforms",
+			"configurations": []
+		},
+	]
+}
