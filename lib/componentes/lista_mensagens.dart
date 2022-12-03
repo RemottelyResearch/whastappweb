@@ -92,14 +92,14 @@ class _ListaMensagensState extends State<ListaMensagens> {
         .collection("mensagens")
         .doc(_usuarioRemetente.idUsuario)
         .collection(_usuarioDestinatario.idUsuario)
-        .orderBy("data", descending: true)
+        .orderBy("data", descending: false)
         .snapshots();
 
     _streamMensagens = stream.listen((dados) {
       _streamController.add(dados);
-      // Timer(Duration(milliseconds: 300), () {
-      //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      // });
+      Timer(Duration(milliseconds: 300), () {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      });
     });
   }
 
