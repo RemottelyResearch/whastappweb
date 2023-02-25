@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/app_colors.dart';
-import 'package:whatsappweb/core/infra/mappers/user_model.dart';
+import 'package:whatsappweb/core/infra/models/user_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

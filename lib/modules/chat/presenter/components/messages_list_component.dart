@@ -4,10 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/app_colors.dart';
-import 'package:whatsappweb/core/infra/mappers/user_model.dart';
+import 'package:whatsappweb/core/infra/models/user_model.dart';
 import 'package:whatsappweb/core/infra/repositories/chat_repository.dart';
-import 'package:whatsappweb/modules/chat/infra/mappers/chat_message_model.dart';
-import 'package:whatsappweb/modules/chat/infra/mappers/chat_model.dart';
+import 'package:whatsappweb/modules/chat/domain/entities/chat_entity.dart';
+import 'package:whatsappweb/modules/chat/domain/entities/chat_message_entity.dart';
+import 'package:whatsappweb/modules/chat/infra/models/chat_message_model.dart';
+import 'package:whatsappweb/modules/chat/infra/models/chat_model.dart';
 
 class MessageListComponent extends StatefulWidget {
   final UserModel usuarioRemetente;
@@ -39,50 +41,57 @@ class _MessageListComponentState extends State<MessageListComponent> {
     String textoMensagem = _controllerMensagem.text;
     if (textoMensagem.isNotEmpty) {
       String idUsuarioRemetente = _usuarioRemetente.idUsuario;
-      ChatMessageModel mensagem = ChatMessageModel(
-          idUsuarioRemetente, textoMensagem, Timestamp.now().toString());
+      ChatMessageEntity mensagem = ChatMessageEntity(
+        idUsuario: idUsuarioRemetente,
+        texto: textoMensagem,
+        data: Timestamp.now().toString(),
+      );
 
       //Salvar mensagem para remetente
       String idUsuarioDestinatario = _usuarioDestinatario.idUsuario;
       _salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
-      ChatModel conversaRementente = ChatModel(
-          idUsuarioRemetente, //jamilton
-          idUsuarioDestinatario, // joao
-          mensagem.texto,
-          _usuarioDestinatario.nome,
-          _usuarioDestinatario.email,
-          _usuarioDestinatario.urlImagem);
+      ChatEntity conversaRementente = ChatEntity(
+        emailDestinatario: _usuarioDestinatario.email,
+        idDestinatario: idUsuarioDestinatario,
+        idRemetente: idUsuarioRemetente,
+        nomeDestinatario: _usuarioDestinatario.nome,
+        ultimaMensagem: mensagem.texto,
+        urlImagemDestinatario: _usuarioDestinatario.urlImagem,
+      );
       _salvarConversa(conversaRementente);
 
       //Salvar mensagem para destinatário
       _salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
-      ChatModel conversaDestinatario = ChatModel(
-          idUsuarioDestinatario, //joão
-          idUsuarioRemetente, //jamilton
-          mensagem.texto,
-          _usuarioRemetente.nome,
-          _usuarioRemetente.email,
-          _usuarioRemetente.urlImagem);
+      ChatEntity conversaDestinatario = ChatEntity(
+        emailDestinatario: _usuarioDestinatario.email,
+        idDestinatario: idUsuarioRemetente,
+        idRemetente: idUsuarioDestinatario,
+        nomeDestinatario: _usuarioDestinatario.nome,
+        ultimaMensagem: mensagem.texto,
+        urlImagemDestinatario: _usuarioDestinatario.urlImagem,
+      );
       _salvarConversa(conversaDestinatario);
     }
   }
 
-  _salvarConversa(ChatModel conversa) {
+  _salvarConversa(ChatEntity conversa) {
+    final chatEntityMap = ChatModel.fromEntity(conversa).toMap();
     _firestore
         .collection("conversas")
         .doc(conversa.idRemetente)
         .collection("ultimas_mensagens")
         .doc(conversa.idDestinatario)
-        .set(conversa.toMap());
+        .set(chatEntityMap);
   }
 
   _salvarMensagem(
-      String idRemetente, String idDestinatario, ChatMessageModel mensagem) {
+      String idRemetente, String idDestinatario, ChatMessageEntity mensagem) {
+    final chatMessageMap = ChatMessageModel.fromEntity(mensagem).toMap();
     _firestore
         .collection("mensagens")
         .doc(idRemetente)
         .collection(idDestinatario)
-        .add(mensagem.toMap());
+        .add(chatMessageMap);
 
     _controllerMensagem.clear();
   }

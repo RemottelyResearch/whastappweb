@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsappweb/core/infra/mappers/user_model.dart';
+import 'package:whatsappweb/core/infra/models/user_model.dart';
 import 'package:whatsappweb/modules/chat/presenter/components/messages_list_component.dart';
 
 class ChatPage extends StatefulWidget {
