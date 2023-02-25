@@ -116,7 +116,7 @@ class AreaLateralConversas extends StatelessWidget {
                 IconButton(
                     onPressed: () async {
                       await FirebaseAuth.instance.signOut();
-                      Navigator.pushReplacementNamed(context, "/login");
+                      Modular.to.navigate("/login");
                     },
                     icon: Icon(Icons.logout))
               ],

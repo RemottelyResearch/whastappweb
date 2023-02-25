@@ -114,8 +114,8 @@ class _ListaConversasState extends State<ListaConversas> {
                     return ListTile(
                       onTap: () {
                         if (isMobile) {
-                          Navigator.pushNamed(context, "/mensagens",
-                              arguments: usuario);
+                          Modular.to
+                              .pushNamed("/mensagens", arguments: usuario);
                         } else {
                           Modular.get<ConversaProvider>().usuarioDestinatario =
                               usuario;

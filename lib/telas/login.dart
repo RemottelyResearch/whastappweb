@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/modelos/usuario.dart';
 import 'package:whatsappweb/uteis/paleta_cores.dart';
 
@@ -34,7 +35,7 @@ class _LoginState extends State<Login> {
   //   User? usuarioLogado = _auth.currentUser;
   //
   //   if( usuarioLogado != null ){
-  //     Navigator.pushReplacementNamed(context, "/home");
+  //     Modular.to.pushReplacementNamed("/home");
   //   }
   //
   // }
@@ -70,7 +71,7 @@ class _LoginState extends State<Login> {
         final usuariosRef = _firestore.collection("usuarios");
         usuariosRef.doc(usuario.idUsuario).set(usuario.toMap()).then((value) {
           //tela principal
-          Navigator.pushReplacementNamed(context, "/home");
+          Modular.to.navigate("/home");
         });
       });
     }
@@ -110,7 +111,7 @@ class _LoginState extends State<Login> {
               .signInWithEmailAndPassword(email: email, password: senha)
               .then((auth) {
             //tela principal
-            Navigator.pushReplacementNamed(context, "/home");
+            Modular.to.navigate("/home");
           });
         }
       } else {

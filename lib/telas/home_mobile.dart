@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/componentes/lista_contatos.dart';
 import 'package:whatsappweb/componentes/lista_conversas.dart';
 
@@ -28,7 +29,7 @@ class _HomeMobileState extends State<HomeMobile> {
               IconButton(
                   onPressed: () async {
                     await _auth.signOut();
-                    Navigator.pushReplacementNamed(context, "/login");
+                    Modular.to.navigate("/login");
                   },
                   icon: Icon(Icons.logout)),
             ],

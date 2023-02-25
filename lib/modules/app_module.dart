@@ -27,7 +27,7 @@ class AppModule extends Module {
         ),
         ChildRoute(
           '/mensagens',
-          child: (context, args) => Mensagens(args as Usuario),
+          child: (context, args) => Mensagens(args.data as Usuario),
         ),
       ];
 }
