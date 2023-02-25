@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/core/infra/models/user_model.dart';
+import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 
 class ContactsListTab extends StatefulWidget {
   const ContactsListTab({Key? key}) : super(key: key);
@@ -17,10 +17,10 @@ class _ContactsListTabState extends State<ContactsListTab> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String _idUsuarioLogado;
 
-  Future<List<UserModel>> _recuperarContatos() async {
+  Future<List<UserEntity>> _recuperarContatos() async {
     final usuarioRef = _firestore.collection("usuarios");
     QuerySnapshot querySnapshot = await usuarioRef.get();
-    List<UserModel> listaUsuarios = [];
+    List<UserEntity> listaUsuarios = [];
 
     for (DocumentSnapshot item in querySnapshot.docs) {
       String idUsuario = item["idUsuario"];
@@ -30,8 +30,12 @@ class _ContactsListTabState extends State<ContactsListTab> {
       String nome = item["nome"];
       String urlImagem = item["urlImagem"];
 
-      UserModel usuario =
-          UserModel(idUsuario, nome, email, urlImagem: urlImagem);
+      UserEntity usuario = UserEntity(
+        idUsuario: idUsuario,
+        nome: nome,
+        email: email,
+        urlImagem: urlImagem,
+      );
       listaUsuarios.add(usuario);
     }
 
@@ -53,7 +57,7 @@ class _ContactsListTabState extends State<ContactsListTab> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<UserModel>>(
+    return FutureBuilder<List<UserEntity>>(
         future: _recuperarContatos(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -72,7 +76,7 @@ class _ContactsListTabState extends State<ContactsListTab> {
               if (snapshot.hasError) {
                 return Center(child: Text("Erro ao carregar os dados!"));
               } else {
-                List<UserModel>? listaUsuarios = snapshot.data;
+                List<UserEntity>? listaUsuarios = snapshot.data;
                 if (listaUsuarios != null) {
                   return ListView.separated(
                     separatorBuilder: (context, indice) {
@@ -83,7 +87,7 @@ class _ContactsListTabState extends State<ContactsListTab> {
                     },
                     itemCount: listaUsuarios.length,
                     itemBuilder: (context, indice) {
-                      UserModel usuario = listaUsuarios[indice];
+                      UserEntity usuario = listaUsuarios[indice];
                       return ListTile(
                         onTap: () {
                           Modular.to

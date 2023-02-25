@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/core/infra/models/user_model.dart';
+import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 
 class ChatsListTab extends StatefulWidget {
   const ChatsListTab({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _ChatsListTabState extends State<ChatsListTab> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  late UserModel _usuarioRemetente;
+  late UserEntity _usuarioRemetente;
   StreamController _streamController =
       StreamController<QuerySnapshot>.broadcast();
   late StreamSubscription _streamConversas;
@@ -43,8 +43,12 @@ class _ChatsListTabState extends State<ChatsListTab> {
       String? email = usuarioLogado.email ?? "";
       String? urlImagem = usuarioLogado.photoURL ?? "";
 
-      _usuarioRemetente =
-          UserModel(idUsuario, nome, email, urlImagem: urlImagem);
+      _usuarioRemetente = UserEntity(
+        idUsuario: idUsuario,
+        nome: nome,
+        email: email,
+        urlImagem: urlImagem,
+      );
     }
 
     _adicionarListenerConversas();
@@ -104,9 +108,12 @@ class _ChatsListTabState extends State<ChatsListTab> {
                     String ultimaMensagem = conversa["ultimaMensagem"];
                     String idDestinatario = conversa["idDestinatario"];
 
-                    UserModel usuario = UserModel(
-                        idDestinatario, nomeDestinatario, emailDestinatario,
-                        urlImagem: urlImagemDestinatario);
+                    UserEntity usuario = UserEntity(
+                      idUsuario: idDestinatario,
+                      nome: nomeDestinatario,
+                      email: emailDestinatario,
+                      urlImagem: urlImagemDestinatario,
+                    );
 
                     return ListTile(
                       onTap: () {

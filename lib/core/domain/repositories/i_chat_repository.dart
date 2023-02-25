@@ -1,7 +1,7 @@
-import 'package:whatsappweb/core/infra/models/user_model.dart';
+import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 
 abstract class IChatRepository {
-  UserModel? get usuarioDestinatario;
+  UserEntity? get usuarioDestinatario;
 
-  set usuarioDestinatario(UserModel? usuario);
+  set usuarioDestinatario(UserEntity? usuario);
 }

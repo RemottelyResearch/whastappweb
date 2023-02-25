@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/core/domain/repositories/i_chat_repository.dart';
-import 'package:whatsappweb/core/infra/models/user_model.dart';
 
-class ChatRepository extends ChangeNotifier implements IChatRepository {
-  UserModel? _usuarioDestinatario;
+class ChatRepository implements IChatRepository {
+  UserEntity? _usuarioDestinatario;
 
-  UserModel? get usuarioDestinatario => _usuarioDestinatario;
+  UserEntity? get usuarioDestinatario => _usuarioDestinatario;
 
-  set usuarioDestinatario(UserModel? usuario) {
+  set usuarioDestinatario(UserEntity? usuario) {
     _usuarioDestinatario = usuario;
-    notifyListeners();
   }
 }

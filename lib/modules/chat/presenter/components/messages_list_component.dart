@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/app_colors.dart';
-import 'package:whatsappweb/core/infra/models/user_model.dart';
+import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/core/infra/repositories/chat_repository.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_message_entity.dart';
@@ -12,8 +12,8 @@ import 'package:whatsappweb/modules/chat/infra/models/chat_message_model.dart';
 import 'package:whatsappweb/modules/chat/infra/models/chat_model.dart';
 
 class MessageListComponent extends StatefulWidget {
-  final UserModel usuarioRemetente;
-  final UserModel usuarioDestinatario;
+  final UserEntity usuarioRemetente;
+  final UserEntity usuarioDestinatario;
 
   const MessageListComponent({
     Key? key,
@@ -30,8 +30,8 @@ class _MessageListComponentState extends State<MessageListComponent> {
 
   TextEditingController _controllerMensagem = TextEditingController();
   ScrollController _scrollController = ScrollController();
-  late UserModel _usuarioRemetente;
-  late UserModel _usuarioDestinatario;
+  late UserEntity _usuarioRemetente;
+  late UserEntity _usuarioDestinatario;
 
   StreamController _streamController =
       StreamController<QuerySnapshot>.broadcast();
@@ -120,7 +120,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
   }
 
   _atualizarListenerMensagens() {
-    UserModel? usuarioDestinatario =
+    UserEntity? usuarioDestinatario =
         Modular.get<ChatRepository>().usuarioDestinatario;
 
     if (usuarioDestinatario != null) {

@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/app_colors.dart';
+import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/core/infra/models/user_model.dart';
 
 class LoginPage extends StatefulWidget {
@@ -53,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  _uploadImagem(UserModel usuario) {
+  _uploadImagem(UserEntity usuario) {
     Uint8List? arquivoSelecionado = _arquivoImagemSelecionado;
     if (arquivoSelecionado != null) {
       Reference imagemPerfilRef =
@@ -69,7 +70,10 @@ class _LoginPageState extends State<LoginPage> {
         await _auth.currentUser?.updatePhotoURL(usuario.urlImagem);
 
         final usuariosRef = _firestore.collection("usuarios");
-        usuariosRef.doc(usuario.idUsuario).set(usuario.toMap()).then((value) {
+
+        final userMap = UserModel.fromEntity(usuario).toMap();
+
+        usuariosRef.doc(usuario.idUsuario).set(userMap).then((value) {
           //tela principal
           Modular.to.navigate("/");
         });
@@ -94,7 +98,11 @@ class _LoginPageState extends State<LoginPage> {
                 //Upload
                 String? idUsuario = auth.user?.uid;
                 if (idUsuario != null) {
-                  UserModel usuario = UserModel(idUsuario, nome, email);
+                  UserEntity usuario = UserEntity(
+                    idUsuario: idUsuario,
+                    nome: nome,
+                    email: email,
+                  );
                   _uploadImagem(usuario);
                 }
                 //print("Usuario cadastrado: $idUsuario");

@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/core/infra/models/user_model.dart';
+import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/core/infra/repositories/chat_repository.dart';
 import 'package:whatsappweb/modules/chat/presenter/pages/chat_page.dart';
 import 'package:whatsappweb/modules/login/login_page.dart';
@@ -24,7 +24,7 @@ class AppModule extends Module {
         ),
         ChildRoute(
           '/mensagens',
-          child: (context, args) => ChatPage(args.data as UserModel),
+          child: (context, args) => ChatPage(args.data as UserEntity),
         ),
       ];
 }

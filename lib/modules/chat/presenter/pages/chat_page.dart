@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsappweb/core/infra/models/user_model.dart';
+import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/modules/chat/presenter/components/messages_list_component.dart';
 
 class ChatPage extends StatefulWidget {
-  final UserModel usuarioDestinatario;
+  final UserEntity usuarioDestinatario;
 
   const ChatPage(this.usuarioDestinatario, {Key? key}) : super(key: key);
 
@@ -14,8 +14,8 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  late UserModel _usuarioRemetente;
-  late UserModel _usuarioDestinatario;
+  late UserEntity _usuarioRemetente;
+  late UserEntity _usuarioDestinatario;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   _recuperarDadosIniciais() {
@@ -28,10 +28,10 @@ class _ChatPageState extends State<ChatPage> {
       String? email = usuarioLogado.email ?? "";
       String? urlImagem = usuarioLogado.photoURL ?? "";
 
-      _usuarioRemetente = UserModel(
-        idUsuario,
-        nome,
-        email,
+      _usuarioRemetente = UserEntity(
+        idUsuario: idUsuario,
+        nome: nome,
+        email: email,
         urlImagem: urlImagem,
       );
     }
