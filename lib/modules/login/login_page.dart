@@ -7,17 +7,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/core/usuario.dart';
-import 'package:whatsappweb/uteis/paleta_cores.dart';
+import 'package:whatsappweb/core/app_colors.dart';
+import 'package:whatsappweb/core/infra/mappers/user_model.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginViewState createState() => _LoginViewState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginPageState extends State<LoginPage> {
   TextEditingController _controllerNome =
       TextEditingController(text: "Jamilton Damasceno");
   TextEditingController _controllerEmail =
@@ -53,7 +53,7 @@ class _LoginViewState extends State<LoginView> {
     });
   }
 
-  _uploadImagem(Usuario usuario) {
+  _uploadImagem(UserModel usuario) {
     Uint8List? arquivoSelecionado = _arquivoImagemSelecionado;
     if (arquivoSelecionado != null) {
       Reference imagemPerfilRef =
@@ -94,7 +94,7 @@ class _LoginViewState extends State<LoginView> {
                 //Upload
                 String? idUsuario = auth.user?.uid;
                 if (idUsuario != null) {
-                  Usuario usuario = Usuario(idUsuario, nome, email);
+                  UserModel usuario = UserModel(idUsuario, nome, email);
                   _uploadImagem(usuario);
                 }
                 //print("Usuario cadastrado: $idUsuario");
@@ -129,7 +129,7 @@ class _LoginViewState extends State<LoginView> {
 
     return Scaffold(
       body: Container(
-        color: PaletaCores.corFundo,
+        color: AppColors.corFundo,
         width: larguraTela,
         height: alturaTela,
         child: Stack(
@@ -138,7 +138,7 @@ class _LoginViewState extends State<LoginView> {
                 child: Container(
               width: larguraTela,
               height: alturaTela * 0.5,
-              color: PaletaCores.corPrimaria,
+              color: AppColors.corPrimaria,
             )),
             Center(
               child: SingleChildScrollView(
@@ -234,7 +234,7 @@ class _LoginViewState extends State<LoginView> {
                                 _validarCampos();
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: PaletaCores.corPrimaria),
+                                  backgroundColor: AppColors.corPrimaria),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 8),
                                 child: Text(

@@ -1,4 +1,4 @@
-class Conversa {
+class ChatModel {
   String idRemetente;
   String idDestinatario;
   String ultimaMensagem;
@@ -6,7 +6,7 @@ class Conversa {
   String emailDestinatario;
   String urlImagemDestinatario;
 
-  Conversa(
+  ChatModel(
     this.idRemetente,
     this.idDestinatario,
     this.ultimaMensagem,

@@ -1,17 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/modules/home/lista_contatos.dart';
-import 'package:whatsappweb/modules/home/lista_conversas.dart';
+import 'package:whatsappweb/modules/home/chats_list_tab.dart';
+import 'package:whatsappweb/modules/home/contacts_list_tab.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomePageState extends State<HomePage> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -52,11 +52,11 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: ListaConversas(),
+                  child: ChatsListTab(),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: ListaContatos(),
+                  child: ContactsListTab(),
                 )
               ],
             ),

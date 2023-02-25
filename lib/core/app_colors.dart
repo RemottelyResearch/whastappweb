@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PaletaCores {
+class AppColors {
   static const Color corPrimaria = Color(0xff075E54);
   static const Color corDestaque = Color(0xff25D366);
   static const Color corFundo = Color(0xffD9DBD5);
@@ -9,6 +9,6 @@ class PaletaCores {
 }
 
 final ThemeData temaPadrao = ThemeData(
-    primaryColor: PaletaCores.corPrimaria,
+    primaryColor: AppColors.corPrimaria,
     colorScheme:
-        ColorScheme.fromSwatch().copyWith(secondary: PaletaCores.corDestaque));
+        ColorScheme.fromSwatch().copyWith(secondary: AppColors.corDestaque));

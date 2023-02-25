@@ -1,30 +1,30 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/core/conversa_provider.dart';
-import 'package:whatsappweb/core/usuario.dart';
-import 'package:whatsappweb/modules/chat/mensagens_view.dart';
-import 'package:whatsappweb/modules/login/login_view.dart';
+import 'package:whatsappweb/core/infra/mappers/user_model.dart';
+import 'package:whatsappweb/core/infra/repositories/chat_repository.dart';
+import 'package:whatsappweb/modules/chat/presenter/pages/chat_page.dart';
+import 'package:whatsappweb/modules/login/login_page.dart';
 
-import 'home/home_view.dart';
+import 'home/home_page.dart';
 
 class AppModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.singleton<ConversaProvider>((i) => ConversaProvider()),
+        Bind.singleton<ChatRepository>((i) => ChatRepository()),
       ];
 
   @override
   List<ModularRoute> get routes => [
         ChildRoute(
           '/',
-          child: (context, args) => const HomeView(),
+          child: (context, args) => const HomePage(),
         ),
         ChildRoute(
           '/login',
-          child: (context, args) => const LoginView(),
+          child: (context, args) => const LoginPage(),
         ),
         ChildRoute(
           '/mensagens',
-          child: (context, args) => MensagensView(args.data as Usuario),
+          child: (context, args) => ChatPage(args.data as UserModel),
         ),
       ];
 }

@@ -3,24 +3,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/core/usuario.dart';
+import 'package:whatsappweb/core/infra/mappers/user_model.dart';
 
-class ListaContatos extends StatefulWidget {
-  const ListaContatos({Key? key}) : super(key: key);
+class ContactsListTab extends StatefulWidget {
+  const ContactsListTab({Key? key}) : super(key: key);
 
   @override
-  _ListaContatosState createState() => _ListaContatosState();
+  _ContactsListTabState createState() => _ContactsListTabState();
 }
 
-class _ListaContatosState extends State<ListaContatos> {
+class _ContactsListTabState extends State<ContactsListTab> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String _idUsuarioLogado;
 
-  Future<List<Usuario>> _recuperarContatos() async {
+  Future<List<UserModel>> _recuperarContatos() async {
     final usuarioRef = _firestore.collection("usuarios");
     QuerySnapshot querySnapshot = await usuarioRef.get();
-    List<Usuario> listaUsuarios = [];
+    List<UserModel> listaUsuarios = [];
 
     for (DocumentSnapshot item in querySnapshot.docs) {
       String idUsuario = item["idUsuario"];
@@ -30,7 +30,8 @@ class _ListaContatosState extends State<ListaContatos> {
       String nome = item["nome"];
       String urlImagem = item["urlImagem"];
 
-      Usuario usuario = Usuario(idUsuario, nome, email, urlImagem: urlImagem);
+      UserModel usuario =
+          UserModel(idUsuario, nome, email, urlImagem: urlImagem);
       listaUsuarios.add(usuario);
     }
 
@@ -52,7 +53,7 @@ class _ListaContatosState extends State<ListaContatos> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Usuario>>(
+    return FutureBuilder<List<UserModel>>(
         future: _recuperarContatos(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -71,7 +72,7 @@ class _ListaContatosState extends State<ListaContatos> {
               if (snapshot.hasError) {
                 return Center(child: Text("Erro ao carregar os dados!"));
               } else {
-                List<Usuario>? listaUsuarios = snapshot.data;
+                List<UserModel>? listaUsuarios = snapshot.data;
                 if (listaUsuarios != null) {
                   return ListView.separated(
                     separatorBuilder: (context, indice) {
@@ -82,7 +83,7 @@ class _ListaContatosState extends State<ListaContatos> {
                     },
                     itemCount: listaUsuarios.length,
                     itemBuilder: (context, indice) {
-                      Usuario usuario = listaUsuarios[indice];
+                      UserModel usuario = listaUsuarios[indice];
                       return ListTile(
                         onTap: () {
                           Modular.to

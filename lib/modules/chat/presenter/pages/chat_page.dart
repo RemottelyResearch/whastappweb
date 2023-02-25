@@ -1,21 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsappweb/core/usuario.dart';
-import 'package:whatsappweb/modules/chat/lista_mensagens.dart';
+import 'package:whatsappweb/core/infra/mappers/user_model.dart';
+import 'package:whatsappweb/modules/chat/presenter/components/messages_list_component.dart';
 
-class MensagensView extends StatefulWidget {
-  final Usuario usuarioDestinatario;
+class ChatPage extends StatefulWidget {
+  final UserModel usuarioDestinatario;
 
-  const MensagensView(this.usuarioDestinatario, {Key? key}) : super(key: key);
+  const ChatPage(this.usuarioDestinatario, {Key? key}) : super(key: key);
 
   @override
-  _MensagensViewState createState() => _MensagensViewState();
+  _ChatPageState createState() => _ChatPageState();
 }
 
-class _MensagensViewState extends State<MensagensView> {
-  late Usuario _usuarioRemetente;
-  late Usuario _usuarioDestinatario;
+class _ChatPageState extends State<ChatPage> {
+  late UserModel _usuarioRemetente;
+  late UserModel _usuarioDestinatario;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   _recuperarDadosIniciais() {
@@ -28,7 +28,7 @@ class _MensagensViewState extends State<MensagensView> {
       String? email = usuarioLogado.email ?? "";
       String? urlImagem = usuarioLogado.photoURL ?? "";
 
-      _usuarioRemetente = Usuario(
+      _usuarioRemetente = UserModel(
         idUsuario,
         nome,
         email,
@@ -67,7 +67,7 @@ class _MensagensViewState extends State<MensagensView> {
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
       ),
       body: SafeArea(
-        child: ListaMensagens(
+        child: MessageListComponent(
           usuarioRemetente: _usuarioRemetente,
           usuarioDestinatario: _usuarioDestinatario,
         ),

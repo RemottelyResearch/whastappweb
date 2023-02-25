@@ -1,9 +1,9 @@
-class Mensagem {
+class ChatMessageModel {
   String idUsuario;
   String texto;
   String data;
 
-  Mensagem(
+  ChatMessageModel(
     this.idUsuario,
     this.texto,
     this.data,

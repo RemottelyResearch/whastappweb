@@ -3,33 +3,33 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/core/conversa_provider.dart';
-import 'package:whatsappweb/core/usuario.dart';
-import 'package:whatsappweb/modules/chat/conversa.dart';
-import 'package:whatsappweb/modules/chat/mensagem.dart';
-import 'package:whatsappweb/uteis/paleta_cores.dart';
+import 'package:whatsappweb/core/app_colors.dart';
+import 'package:whatsappweb/core/infra/mappers/user_model.dart';
+import 'package:whatsappweb/core/infra/repositories/chat_repository.dart';
+import 'package:whatsappweb/modules/chat/infra/mappers/chat_message_model.dart';
+import 'package:whatsappweb/modules/chat/infra/mappers/chat_model.dart';
 
-class ListaMensagens extends StatefulWidget {
-  final Usuario usuarioRemetente;
-  final Usuario usuarioDestinatario;
+class MessageListComponent extends StatefulWidget {
+  final UserModel usuarioRemetente;
+  final UserModel usuarioDestinatario;
 
-  const ListaMensagens({
+  const MessageListComponent({
     Key? key,
     required this.usuarioRemetente,
     required this.usuarioDestinatario,
   }) : super(key: key);
 
   @override
-  _ListaMensagensState createState() => _ListaMensagensState();
+  _MessageListComponentState createState() => _MessageListComponentState();
 }
 
-class _ListaMensagensState extends State<ListaMensagens> {
+class _MessageListComponentState extends State<MessageListComponent> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   TextEditingController _controllerMensagem = TextEditingController();
   ScrollController _scrollController = ScrollController();
-  late Usuario _usuarioRemetente;
-  late Usuario _usuarioDestinatario;
+  late UserModel _usuarioRemetente;
+  late UserModel _usuarioDestinatario;
 
   StreamController _streamController =
       StreamController<QuerySnapshot>.broadcast();
@@ -39,13 +39,13 @@ class _ListaMensagensState extends State<ListaMensagens> {
     String textoMensagem = _controllerMensagem.text;
     if (textoMensagem.isNotEmpty) {
       String idUsuarioRemetente = _usuarioRemetente.idUsuario;
-      Mensagem mensagem = Mensagem(
+      ChatMessageModel mensagem = ChatMessageModel(
           idUsuarioRemetente, textoMensagem, Timestamp.now().toString());
 
       //Salvar mensagem para remetente
       String idUsuarioDestinatario = _usuarioDestinatario.idUsuario;
       _salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
-      Conversa conversaRementente = Conversa(
+      ChatModel conversaRementente = ChatModel(
           idUsuarioRemetente, //jamilton
           idUsuarioDestinatario, // joao
           mensagem.texto,
@@ -56,7 +56,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
 
       //Salvar mensagem para destinatário
       _salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
-      Conversa conversaDestinatario = Conversa(
+      ChatModel conversaDestinatario = ChatModel(
           idUsuarioDestinatario, //joão
           idUsuarioRemetente, //jamilton
           mensagem.texto,
@@ -67,7 +67,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
     }
   }
 
-  _salvarConversa(Conversa conversa) {
+  _salvarConversa(ChatModel conversa) {
     _firestore
         .collection("conversas")
         .doc(conversa.idRemetente)
@@ -77,7 +77,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
   }
 
   _salvarMensagem(
-      String idRemetente, String idDestinatario, Mensagem mensagem) {
+      String idRemetente, String idDestinatario, ChatMessageModel mensagem) {
     _firestore
         .collection("mensagens")
         .doc(idRemetente)
@@ -111,8 +111,8 @@ class _ListaMensagensState extends State<ListaMensagens> {
   }
 
   _atualizarListenerMensagens() {
-    Usuario? usuarioDestinatario =
-        Modular.get<ConversaProvider>().usuarioDestinatario;
+    UserModel? usuarioDestinatario =
+        Modular.get<ChatRepository>().usuarioDestinatario;
 
     if (usuarioDestinatario != null) {
       _usuarioDestinatario = usuarioDestinatario;
@@ -220,7 +220,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
           //Caixa de texto
           Container(
             padding: EdgeInsets.all(8),
-            color: PaletaCores.corFundoBarra,
+            color: AppColors.corFundoBarra,
             child: Row(
               children: [
                 //Caixa de texto arredondada
@@ -252,7 +252,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
 
                 //Botao Enviar
                 FloatingActionButton(
-                    backgroundColor: PaletaCores.corPrimaria,
+                    backgroundColor: AppColors.corPrimaria,
                     child: Icon(
                       Icons.send,
                       color: Colors.white,

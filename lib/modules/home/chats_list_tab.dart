@@ -5,20 +5,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/core/usuario.dart';
+import 'package:whatsappweb/core/infra/mappers/user_model.dart';
 
-class ListaConversas extends StatefulWidget {
-  const ListaConversas({Key? key}) : super(key: key);
+class ChatsListTab extends StatefulWidget {
+  const ChatsListTab({Key? key}) : super(key: key);
 
   @override
-  _ListaConversasState createState() => _ListaConversasState();
+  _ChatsListTabState createState() => _ChatsListTabState();
 }
 
-class _ListaConversasState extends State<ListaConversas> {
+class _ChatsListTabState extends State<ChatsListTab> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  late Usuario _usuarioRemetente;
+  late UserModel _usuarioRemetente;
   StreamController _streamController =
       StreamController<QuerySnapshot>.broadcast();
   late StreamSubscription _streamConversas;
@@ -43,7 +43,8 @@ class _ListaConversasState extends State<ListaConversas> {
       String? email = usuarioLogado.email ?? "";
       String? urlImagem = usuarioLogado.photoURL ?? "";
 
-      _usuarioRemetente = Usuario(idUsuario, nome, email, urlImagem: urlImagem);
+      _usuarioRemetente =
+          UserModel(idUsuario, nome, email, urlImagem: urlImagem);
     }
 
     _adicionarListenerConversas();
@@ -103,7 +104,7 @@ class _ListaConversasState extends State<ListaConversas> {
                     String ultimaMensagem = conversa["ultimaMensagem"];
                     String idDestinatario = conversa["idDestinatario"];
 
-                    Usuario usuario = Usuario(
+                    UserModel usuario = UserModel(
                         idDestinatario, nomeDestinatario, emailDestinatario,
                         urlImagem: urlImagemDestinatario);
 
