@@ -28,7 +28,12 @@ class _MensagensState extends State<Mensagens> {
       String? email = usuarioLogado.email ?? "";
       String? urlImagem = usuarioLogado.photoURL ?? "";
 
-      _usuarioRemetente = Usuario(idUsuario, nome, email, urlImagem: urlImagem);
+      _usuarioRemetente = Usuario(
+        idUsuario,
+        nome,
+        email,
+        urlImagem: urlImagem,
+      );
     }
   }
 

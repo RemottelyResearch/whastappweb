@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsappweb/componentes/lista_contatos.dart';
 import 'package:whatsappweb/componentes/lista_conversas.dart';
-import 'package:whatsappweb/modelos/usuario.dart';
 
 class HomeMobile extends StatefulWidget {
   const HomeMobile({Key? key}) : super(key: key);
@@ -13,7 +11,6 @@ class HomeMobile extends StatefulWidget {
 }
 
 class _HomeMobileState extends State<HomeMobile> {
-
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -24,29 +21,28 @@ class _HomeMobileState extends State<HomeMobile> {
           appBar: AppBar(
             title: Text("WhatsApp"),
             actions: [
-              IconButton(
-                  onPressed: (){},
-                  icon: Icon(Icons.search)
+              IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+              SizedBox(
+                width: 3.0,
               ),
-              SizedBox(width: 3.0,),
               IconButton(
                   onPressed: () async {
                     await _auth.signOut();
                     Navigator.pushReplacementNamed(context, "/login");
                   },
-                  icon: Icon(Icons.logout)
-              ),
+                  icon: Icon(Icons.logout)),
             ],
             bottom: TabBar(
               indicatorColor: Colors.white,
               indicatorWeight: 4,
-              labelStyle: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold
-              ),
+              labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               tabs: [
-                Tab(text: "Conversas",),
-                Tab(text: "Contatos",),
+                Tab(
+                  text: "Conversas",
+                ),
+                Tab(
+                  text: "Contatos",
+                ),
               ],
             ),
           ),
@@ -58,15 +54,12 @@ class _HomeMobileState extends State<HomeMobile> {
                   child: ListaConversas(),
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: ListaContatos(),
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: ListaContatos(),
                 )
-
               ],
             ),
           ),
-
-        )
-    );
+        ));
   }
 }

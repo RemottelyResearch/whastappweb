@@ -1,5 +1,4 @@
 class Conversa {
-
   String idRemetente;
   String idDestinatario;
   String ultimaMensagem;
@@ -8,26 +7,24 @@ class Conversa {
   String urlImagemDestinatario;
 
   Conversa(
-      this.idRemetente,
-      this.idDestinatario,
-      this.ultimaMensagem,
-      this.nomeDestinatario,
-      this.emailDestinatario,
-      this.urlImagemDestinatario);
+    this.idRemetente,
+    this.idDestinatario,
+    this.ultimaMensagem,
+    this.nomeDestinatario,
+    this.emailDestinatario,
+    this.urlImagemDestinatario,
+  );
 
-  Map<String, dynamic> toMap(){
-
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      "idRemetente" : this.idRemetente,
-      "idDestinatario" : this.idDestinatario,
-      "ultimaMensagem" : this.ultimaMensagem,
-      "nomeDestinatario" : this.nomeDestinatario,
-      "emailDestinatario" : this.emailDestinatario,
-      "urlImagemDestinatario" : this.urlImagemDestinatario,
+      "idRemetente": this.idRemetente,
+      "idDestinatario": this.idDestinatario,
+      "ultimaMensagem": this.ultimaMensagem,
+      "nomeDestinatario": this.nomeDestinatario,
+      "emailDestinatario": this.emailDestinatario,
+      "urlImagemDestinatario": this.urlImagemDestinatario,
     };
 
     return map;
-
   }
-
 }

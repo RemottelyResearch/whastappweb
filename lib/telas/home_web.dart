@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:whatsappweb/componentes/lista_conversas.dart';
 import 'package:whatsappweb/componentes/lista_mensagens.dart';
 import 'package:whatsappweb/modelos/usuario.dart';
 import 'package:whatsappweb/provider/conversa_provider.dart';
 import 'package:whatsappweb/uteis/paleta_cores.dart';
 import 'package:whatsappweb/uteis/responsivo.dart';
-import 'package:provider/provider.dart';
 
 class HomeWeb extends StatefulWidget {
   const HomeWeb({Key? key}) : super(key: key);
@@ -17,27 +17,18 @@ class HomeWeb extends StatefulWidget {
 }
 
 class _HomeWebState extends State<HomeWeb> {
-
   FirebaseAuth _auth = FirebaseAuth.instance;
   late Usuario _usuarioLogado;
 
-  _recuperarDadosUsuarioLogado(){
-
+  _recuperarDadosUsuarioLogado() {
     User? usuarioLogado = _auth.currentUser;
-    if( usuarioLogado != null ){
-
+    if (usuarioLogado != null) {
       String idUsuario = usuarioLogado.uid;
       String? nome = usuarioLogado.displayName ?? "";
       String? email = usuarioLogado.email ?? "";
       String? urlImagem = usuarioLogado.photoURL ?? "";
 
-      _usuarioLogado = Usuario(
-          idUsuario,
-          nome,
-          email,
-          urlImagem: urlImagem
-      );
-
+      _usuarioLogado = Usuario(idUsuario, nome, email, urlImagem: urlImagem);
     }
   }
 
@@ -49,7 +40,6 @@ class _HomeWebState extends State<HomeWeb> {
 
   @override
   Widget build(BuildContext context) {
-
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
     final isWeb = Responsivo.isWeb(context);
@@ -59,18 +49,16 @@ class _HomeWebState extends State<HomeWeb> {
         color: PaletaCores.corFundo,
         child: Stack(
           children: [
-
             Positioned(
                 top: 0,
                 child: Container(
                   color: PaletaCores.corPrimaria,
                   width: largura,
                   height: altura * 0.2,
-                )
-            ),
+                )),
             Positioned(
-                top: isWeb ? altura * 0.05 : 0 ,
-                bottom: isWeb ? altura * 0.05 : 0 ,
+                top: isWeb ? altura * 0.05 : 0,
+                bottom: isWeb ? altura * 0.05 : 0,
                 left: isWeb ? largura * 0.05 : 0,
                 right: isWeb ? largura * 0.05 : 0,
                 child: Row(
@@ -88,9 +76,7 @@ class _HomeWebState extends State<HomeWeb> {
                       ),
                     )
                   ],
-                )
-            )
-
+                ))
           ],
         ),
       ),
@@ -99,56 +85,40 @@ class _HomeWebState extends State<HomeWeb> {
 }
 
 class AreaLateralConversas extends StatelessWidget {
-
   final Usuario usuarioLogado;
 
-  const AreaLateralConversas({
-    Key? key,
-    required this.usuarioLogado
-  }) : super(key: key);
+  const AreaLateralConversas({Key? key, required this.usuarioLogado})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: PaletaCores.corFundoBarraClaro,
-        border: Border(
-          right: BorderSide(
-            color: PaletaCores.corFundo,
-            width: 1
-          )
-        )
-      ),
+          color: PaletaCores.corFundoBarraClaro,
+          border:
+              Border(right: BorderSide(color: PaletaCores.corFundo, width: 1))),
       child: Column(
         children: [
-
           // Barra superior
           Container(
             color: PaletaCores.corFundoBarra,
             padding: EdgeInsets.all(8),
             child: Row(
               children: [
-
                 CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.grey,
-                  backgroundImage: CachedNetworkImageProvider(
-                      usuarioLogado.urlImagem
-                  ),
+                  backgroundImage:
+                      CachedNetworkImageProvider(usuarioLogado.urlImagem),
                 ),
                 Spacer(),
-                IconButton(
-                    onPressed: (){},
-                    icon: Icon(Icons.message)
-                ),
+                IconButton(onPressed: () {}, icon: Icon(Icons.message)),
                 IconButton(
                     onPressed: () async {
                       await FirebaseAuth.instance.signOut();
                       Navigator.pushReplacementNamed(context, "/login");
                     },
-                    icon: Icon(Icons.logout)
-                )
-
+                    icon: Icon(Icons.logout))
               ],
             ),
           ),
@@ -157,25 +127,16 @@ class AreaLateralConversas extends StatelessWidget {
           Container(
             margin: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(100)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(100)),
             child: Row(
               children: [
-
-                IconButton(
-                    onPressed: (){},
-                    icon: Icon(Icons.search)
-                ),
-
+                IconButton(onPressed: () {}, icon: Icon(Icons.search)),
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration.collapsed(
-                        hintText: "Pesquisar uma conversa"
-                    ),
+                        hintText: "Pesquisar uma conversa"),
                   ),
                 ),
-
               ],
             ),
           ),
@@ -183,12 +144,10 @@ class AreaLateralConversas extends StatelessWidget {
           //Lista de conversas
           Expanded(
               child: Container(
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: ListaConversas(),
-              )
-          )
-
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: ListaConversas(),
+          ))
         ],
       ),
     );
@@ -196,67 +155,55 @@ class AreaLateralConversas extends StatelessWidget {
 }
 
 class AreaLateralMensagens extends StatelessWidget {
-
   final Usuario usuarioLogado;
 
-  const AreaLateralMensagens({
-    Key? key,
-    required this.usuarioLogado
-  }) : super(key: key);
+  const AreaLateralMensagens({Key? key, required this.usuarioLogado})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
-    Usuario? usuarioDestinatario = context.watch<ConversaProvider>().usuarioDestinatario;
+    Usuario? usuarioDestinatario =
+        context.watch<ConversaProvider>().usuarioDestinatario;
 
     return usuarioDestinatario != null
         ? Column(
-          children: [
-
-            //Barra superior
-            Container(
-              color: PaletaCores.corFundoBarra,
-              padding: EdgeInsets.all(8),
-              child: Row(
-                children: [
-
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.grey,
-                    backgroundImage: CachedNetworkImageProvider(
-                        usuarioDestinatario.urlImagem
+            children: [
+              //Barra superior
+              Container(
+                color: PaletaCores.corFundoBarra,
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.grey,
+                      backgroundImage: CachedNetworkImageProvider(
+                          usuarioDestinatario.urlImagem),
                     ),
-                  ),
-                  SizedBox(width: 8,),
-                  Text(usuarioDestinatario.nome, style: TextStyle(
-                    fontSize: 16
-                  ),),
-                  Spacer(),
-                  IconButton(
-                      onPressed: (){},
-                      icon: Icon(Icons.search)
-                  ),
-                  IconButton(
-                      onPressed: (){},
-                      icon: Icon(Icons.more_vert)
-                  ),
-
-                ],
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      usuarioDestinatario.nome,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Spacer(),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
+                  ],
+                ),
               ),
-            ),
 
-            //Listagems de mensagens
-            Expanded(
-                child: ListaMensagens(
-                  usuarioRemetente: usuarioLogado,
-                  usuarioDestinatario: usuarioDestinatario,
-                )
-            )
-
-          ],
-        )
+              //Listagems de mensagens
+              Expanded(
+                  child: ListaMensagens(
+                usuarioRemetente: usuarioLogado,
+                usuarioDestinatario: usuarioDestinatario,
+              ))
+            ],
+          )
         : Container(
             width: largura,
             height: altura,
@@ -265,8 +212,5 @@ class AreaLateralMensagens extends StatelessWidget {
               child: Text("Nenhum usuário selecionado no momento"),
             ),
           );
-
   }
 }
-
-
