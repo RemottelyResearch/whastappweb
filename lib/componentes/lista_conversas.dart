@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/modelos/usuario.dart';
 import 'package:whatsappweb/provider/conversa_provider.dart';
 import 'package:whatsappweb/uteis/responsivo.dart';
@@ -117,7 +117,7 @@ class _ListaConversasState extends State<ListaConversas> {
                           Navigator.pushNamed(context, "/mensagens",
                               arguments: usuario);
                         } else {
-                          context.read<ConversaProvider>().usuarioDestinatario =
+                          Modular.get<ConversaProvider>().usuarioDestinatario =
                               usuario;
                         }
                       },

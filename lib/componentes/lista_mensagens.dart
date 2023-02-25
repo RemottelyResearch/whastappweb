@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/modelos/conversa.dart';
 import 'package:whatsappweb/modelos/mensagem.dart';
 import 'package:whatsappweb/modelos/usuario.dart';
@@ -112,7 +112,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
 
   _atualizarListenerMensagens() {
     Usuario? usuarioDestinatario =
-        context.watch<ConversaProvider>().usuarioDestinatario;
+        Modular.get<ConversaProvider>().usuarioDestinatario;
 
     if (usuarioDestinatario != null) {
       _usuarioDestinatario = usuarioDestinatario;

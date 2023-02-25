@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/componentes/lista_conversas.dart';
 import 'package:whatsappweb/componentes/lista_mensagens.dart';
 import 'package:whatsappweb/modelos/usuario.dart';
@@ -165,7 +165,7 @@ class AreaLateralMensagens extends StatelessWidget {
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
     Usuario? usuarioDestinatario =
-        context.watch<ConversaProvider>().usuarioDestinatario;
+        Modular.get<ConversaProvider>().usuarioDestinatario;
 
     return usuarioDestinatario != null
         ? Column(
