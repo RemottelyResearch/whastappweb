@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/modelos/usuario.dart';
+import 'package:whatsappweb/core/usuario.dart';
 
 class ListaContatos extends StatefulWidget {
   const ListaContatos({Key? key}) : super(key: key);

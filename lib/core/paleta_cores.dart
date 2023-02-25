@@ -7,3 +7,8 @@ class PaletaCores {
   static const Color corFundoBarra = Color(0xffededed);
   static const Color corFundoBarraClaro = Color(0xfff6f6f6);
 }
+
+final ThemeData temaPadrao = ThemeData(
+    primaryColor: PaletaCores.corPrimaria,
+    colorScheme:
+        ColorScheme.fromSwatch().copyWith(secondary: PaletaCores.corDestaque));

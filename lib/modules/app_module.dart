@@ -1,9 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/modelos/usuario.dart';
-import 'package:whatsappweb/provider/conversa_provider.dart';
-import 'package:whatsappweb/telas/home.dart';
-import 'package:whatsappweb/telas/login.dart';
-import 'package:whatsappweb/telas/mensagens.dart';
+import 'package:whatsappweb/core/conversa_provider.dart';
+import 'package:whatsappweb/core/usuario.dart';
+import 'package:whatsappweb/modules/chat/mensagens_view.dart';
+import 'package:whatsappweb/modules/login/login_view.dart';
+
+import 'home/home_view.dart';
 
 class AppModule extends Module {
   @override
@@ -15,19 +16,15 @@ class AppModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute(
           '/',
-          child: (context, args) => const Login(),
+          child: (context, args) => const HomeView(),
         ),
         ChildRoute(
           '/login',
-          child: (context, args) => const Login(),
-        ),
-        ChildRoute(
-          '/home',
-          child: (context, args) => const Home(),
+          child: (context, args) => const LoginView(),
         ),
         ChildRoute(
           '/mensagens',
-          child: (context, args) => Mensagens(args.data as Usuario),
+          child: (context, args) => MensagensView(args.data as Usuario),
         ),
       ];
 }

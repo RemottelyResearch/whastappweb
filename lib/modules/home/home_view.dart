@@ -1,17 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/componentes/lista_contatos.dart';
-import 'package:whatsappweb/componentes/lista_conversas.dart';
+import 'package:whatsappweb/modules/home/lista_contatos.dart';
+import 'package:whatsappweb/modules/home/lista_conversas.dart';
 
-class HomeMobile extends StatefulWidget {
-  const HomeMobile({Key? key}) : super(key: key);
+class HomeView extends StatefulWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
-  _HomeMobileState createState() => _HomeMobileState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeMobileState extends State<HomeMobile> {
+class _HomeViewState extends State<HomeView> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override

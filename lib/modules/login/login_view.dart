@@ -7,17 +7,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/modelos/usuario.dart';
+import 'package:whatsappweb/core/usuario.dart';
 import 'package:whatsappweb/uteis/paleta_cores.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _LoginViewState createState() => _LoginViewState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginViewState extends State<LoginView> {
   TextEditingController _controllerNome =
       TextEditingController(text: "Jamilton Damasceno");
   TextEditingController _controllerEmail =
@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
   //   User? usuarioLogado = _auth.currentUser;
   //
   //   if( usuarioLogado != null ){
-  //     Modular.to.pushReplacementNamed("/home");
+  //     Modular.to.pushReplacementNamed("/");
   //   }
   //
   // }
@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
         final usuariosRef = _firestore.collection("usuarios");
         usuariosRef.doc(usuario.idUsuario).set(usuario.toMap()).then((value) {
           //tela principal
-          Modular.to.navigate("/home");
+          Modular.to.navigate("/");
         });
       });
     }
@@ -111,7 +111,7 @@ class _LoginState extends State<Login> {
               .signInWithEmailAndPassword(email: email, password: senha)
               .then((auth) {
             //tela principal
-            Modular.to.navigate("/home");
+            Modular.to.navigate("/");
           });
         }
       } else {

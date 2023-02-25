@@ -1,19 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsappweb/componentes/lista_mensagens.dart';
-import 'package:whatsappweb/modelos/usuario.dart';
+import 'package:whatsappweb/core/usuario.dart';
+import 'package:whatsappweb/modules/chat/lista_mensagens.dart';
 
-class Mensagens extends StatefulWidget {
+class MensagensView extends StatefulWidget {
   final Usuario usuarioDestinatario;
 
-  const Mensagens(this.usuarioDestinatario, {Key? key}) : super(key: key);
+  const MensagensView(this.usuarioDestinatario, {Key? key}) : super(key: key);
 
   @override
-  _MensagensState createState() => _MensagensState();
+  _MensagensViewState createState() => _MensagensViewState();
 }
 
-class _MensagensState extends State<Mensagens> {
+class _MensagensViewState extends State<MensagensView> {
   late Usuario _usuarioRemetente;
   late Usuario _usuarioDestinatario;
   FirebaseAuth _auth = FirebaseAuth.instance;

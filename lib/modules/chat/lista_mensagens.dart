@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/modelos/conversa.dart';
-import 'package:whatsappweb/modelos/mensagem.dart';
-import 'package:whatsappweb/modelos/usuario.dart';
-import 'package:whatsappweb/provider/conversa_provider.dart';
+import 'package:whatsappweb/core/conversa_provider.dart';
+import 'package:whatsappweb/core/usuario.dart';
+import 'package:whatsappweb/modules/chat/conversa.dart';
+import 'package:whatsappweb/modules/chat/mensagem.dart';
 import 'package:whatsappweb/uteis/paleta_cores.dart';
 
 class ListaMensagens extends StatefulWidget {

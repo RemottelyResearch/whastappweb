@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:whatsappweb/modelos/usuario.dart';
+import 'package:whatsappweb/core/usuario.dart';
 
 class ConversaProvider with ChangeNotifier {
   Usuario? _usuarioDestinatario;
