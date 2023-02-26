@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
+import 'package:whatsappweb/modules/chat/external/datasources/chat_datasource_impl.dart';
 import 'package:whatsappweb/modules/chat/infra/repositories/chat_repository_impl.dart';
 import 'package:whatsappweb/modules/chat/presenter/controllers/chat_controller.dart';
 import 'package:whatsappweb/modules/chat/presenter/pages/chat_page.dart';
@@ -10,7 +11,9 @@ import 'home/home_page.dart';
 class AppModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.factory<ChatRepositoryImpl>((_) => ChatRepositoryImpl()),
+        Bind.factory<ChatDatasourceImpl>((_) => ChatDatasourceImpl()),
+        Bind.factory<ChatRepositoryImpl>(
+            (_) => ChatRepositoryImpl(Modular.get<ChatDatasourceImpl>())),
         Bind.singleton<ChatController>(
             (_) => ChatController(Modular.get<ChatRepositoryImpl>())),
       ];

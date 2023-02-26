@@ -1,8 +1,8 @@
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
-import 'package:whatsappweb/modules/chat/domain/repositories/interface_chat_repository.dart';
+import 'package:whatsappweb/modules/chat/domain/repositories/chat_repository.dart';
 
 class ChatController {
-  final InterfaceChatRepository chatRepository;
+  final ChatRepository chatRepository;
 
   ChatController(this.chatRepository);
 
@@ -10,6 +10,6 @@ class ChatController {
   UserEntity? usuarioRemetente;
 
   recuperarDadosIniciais() {
-    usuarioRemetente = chatRepository.getRemetente();
+    usuarioRemetente = chatRepository.remoteGetRemetente();
   }
 }
