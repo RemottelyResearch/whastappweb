@@ -20,14 +20,17 @@ class ChatModule extends Module {
             RemoteSaveChatStatusUseCaseImpl(Modular.get<ChatRepositoryImpl>())),
         Bind.factory<RemoteStreamMessagesUseCaseImpl>((_) =>
             RemoteStreamMessagesUseCaseImpl(Modular.get<ChatRepositoryImpl>())),
+        Bind.factory<RemoteSaveMessageUseCaseImpl>((_) =>
+            RemoteSaveMessageUseCaseImpl(
+                chatRepository: Modular.get<ChatRepositoryImpl>())),
         Bind.singleton<ChatController>((_) => ChatController(
-              remoteLoadLoggedUserData:
-                  Modular.get<RemoteLoadLoggedUserDataUseCaseImpl>(),
-              remoteSaveChatStatus:
-                  Modular.get<RemoteSaveChatStatusUseCaseImpl>(),
-              remoteStreamMessages:
-                  Modular.get<RemoteStreamMessagesUseCaseImpl>(),
-            )),
+            remoteLoadLoggedUserData:
+                Modular.get<RemoteLoadLoggedUserDataUseCaseImpl>(),
+            remoteSaveChatStatus:
+                Modular.get<RemoteSaveChatStatusUseCaseImpl>(),
+            remoteStreamMessages:
+                Modular.get<RemoteStreamMessagesUseCaseImpl>(),
+            remoteSaveMessage: Modular.get<RemoteSaveMessageUseCaseImpl>())),
       ];
 
   @override

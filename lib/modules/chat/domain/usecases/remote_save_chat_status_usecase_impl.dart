@@ -11,9 +11,9 @@ class RemoteSaveChatStatusUseCaseImpl implements RemoteSaveChatStatusUseCase {
 
   const RemoteSaveChatStatusUseCaseImpl(this.chatRepository);
 
-  EndConnectionStatusType call(ChatEntity chat) {
+  Future<EndConnectionStatusType> call(ChatEntity chat) async {
     try {
-      chatRepository.remotePutChatStatus(ChatModel.fromEntity(chat));
+      await chatRepository.remotePutChatStatus(ChatModel.fromEntity(chat));
 
       return EndConnectionStatusType.successed;
     } catch (error) {
