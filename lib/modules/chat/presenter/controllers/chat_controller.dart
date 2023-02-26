@@ -26,6 +26,18 @@ class ChatController {
   UserEntity? usuarioDestinatario;
   UserEntity? usuarioRemetente;
 
+  TextEditingController controllerMensagem = TextEditingController();
+  ScrollController scrollController = ScrollController();
+
+  StreamController streamController =
+      StreamController<QuerySnapshot>.broadcast();
+  late StreamSubscription streamMensagens;
+
+  void dispose() {
+    scrollController.dispose();
+    streamMensagens.cancel();
+  }
+
   /// >>> Finalizados
 
   loadLoggedUserData() {
@@ -58,13 +70,6 @@ class ChatController {
   /// <<< Finalizados
 
   FirebaseFirestore _firestore = Modular.get<FirebaseFirestore>();
-
-  TextEditingController controllerMensagem = TextEditingController();
-  ScrollController scrollController = ScrollController();
-
-  StreamController streamController =
-      StreamController<QuerySnapshot>.broadcast();
-  late StreamSubscription streamMensagens;
 
   enviarMensagem() {
     String textoMensagem = controllerMensagem.text;
@@ -113,10 +118,5 @@ class ChatController {
         .add(chatMessageMap);
 
     controllerMensagem.clear();
-  }
-
-  void dispose() {
-    scrollController.dispose();
-    streamMensagens.cancel();
   }
 }
