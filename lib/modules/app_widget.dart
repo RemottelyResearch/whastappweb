@@ -15,6 +15,7 @@ class AppWidget extends StatelessWidget with WidgetsBindingObserver {
         routeInformationParser: Modular.routeInformationParser,
         routerDelegate: Modular.routerDelegate,
         builder: (context, child) {
+          // TODO: USECASE
           User? usuarioFirebase = Modular.get<FirebaseAuth>().currentUser;
           late String urlInicial;
 

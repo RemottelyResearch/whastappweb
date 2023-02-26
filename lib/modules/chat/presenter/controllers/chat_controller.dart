@@ -4,13 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
+import 'package:whatsappweb/core/domain/usecases/remote_load_logged_user_data_usecase.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_message_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/usecases/remote_save_chat_status_usecase.dart';
 import 'package:whatsappweb/modules/chat/domain/usecases/remote_stream_messages_usecase.dart';
 import 'package:whatsappweb/modules/chat/infra/models/chat_message_model.dart';
-
-import '../../domain/usecases/remote_load_logged_user_data_usecase.dart';
 
 class ChatController {
   final RemoteLoadLoggedUserDataUseCase remoteLoadLoggedUserData;
@@ -50,6 +49,10 @@ class ChatController {
       idRecipientUser: usuarioDestinatario!.idUsuario,
     );
 
+    if (stream == null) {
+      // TODO: show some error
+      return;
+    }
     streamMensagens = stream.listen((dados) {
       streamController.add(dados);
     });

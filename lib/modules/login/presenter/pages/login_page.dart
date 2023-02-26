@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   //   User? usuarioLogado = _auth.currentUser;
   //
   //   if( usuarioLogado != null ){
-  //     Modular.to.pushReplacementNamed('/');
+  //     Modular.to.navigate('/');
   //   }
   //
   // }
