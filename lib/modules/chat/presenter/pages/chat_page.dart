@@ -22,7 +22,7 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     chatController = Modular.get<ChatController>();
     chatController.usuarioDestinatario = widget.usuarioDestinatario;
-    chatController.recuperarDadosIniciais();
+    chatController.recuperarRemetente();
   }
 
   @override
@@ -49,10 +49,7 @@ class _ChatPageState extends State<ChatPage> {
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
       ),
       body: SafeArea(
-        child: MessageListComponent(
-          usuarioRemetente: chatController.usuarioRemetente!,
-          usuarioDestinatario: chatController.usuarioDestinatario!,
-        ),
+        child: MessageListComponent(),
       ),
     );
   }
