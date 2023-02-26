@@ -20,11 +20,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _controllerNome =
-      TextEditingController(text: "Jamilton Damasceno");
+      TextEditingController(text: 'Jamilton Damasceno');
   TextEditingController _controllerEmail =
-      TextEditingController(text: "jamilton@gmail.com");
+      TextEditingController(text: 'jamilton@gmail.com');
   TextEditingController _controllerSenha =
-      TextEditingController(text: "1234567");
+      TextEditingController(text: '1234567');
   bool _cadastroUsuario = false;
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseStorage _storage = FirebaseStorage.instance;
@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   //   User? usuarioLogado = _auth.currentUser;
   //
   //   if( usuarioLogado != null ){
-  //     Modular.to.pushReplacementNamed("/");
+  //     Modular.to.pushReplacementNamed('/');
   //   }
   //
   // }
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
     Uint8List? arquivoSelecionado = _arquivoImagemSelecionado;
     if (arquivoSelecionado != null) {
       Reference imagemPerfilRef =
-          _storage.ref("imagens/perfil/${usuario.idUsuario}.jpg");
+          _storage.ref('imagens/perfil/${usuario.idUsuario}.jpg');
       UploadTask uploadTask = imagemPerfilRef.putData(arquivoSelecionado);
 
       uploadTask.whenComplete(() async {
@@ -69,13 +69,13 @@ class _LoginPageState extends State<LoginPage> {
         await _auth.currentUser?.updateDisplayName(usuario.nome);
         await _auth.currentUser?.updatePhotoURL(usuario.urlImagem);
 
-        final usuariosRef = _firestore.collection("usuarios");
+        final usuariosRef = _firestore.collection('usuarios');
 
         final userMap = UserModel.fromEntity(usuario).toMap();
 
         usuariosRef.doc(usuario.idUsuario).set(userMap).then((value) {
           //tela principal
-          Modular.to.navigate("/");
+          Modular.to.navigate('/');
         });
       });
     }
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
     String email = _controllerEmail.text;
     String senha = _controllerSenha.text;
 
-    if (email.isNotEmpty && email.contains("@")) {
+    if (email.isNotEmpty && email.contains('@')) {
       if (senha.isNotEmpty && senha.length > 6) {
         if (_cadastroUsuario) {
           if (_arquivoImagemSelecionado != null) {
@@ -105,13 +105,13 @@ class _LoginPageState extends State<LoginPage> {
                   );
                   _uploadImagem(usuario);
                 }
-                //print("Usuario cadastrado: $idUsuario");
+                //print('Usuario cadastrado: $idUsuario');
               });
             } else {
-              print("Nome inválido, digite ao menos 3 caracteres");
+              print('Nome inválido, digite ao menos 3 caracteres');
             }
           } else {
-            print("Selecione uma imagem");
+            print('Selecione uma imagem');
           }
         } else {
           //Login
@@ -119,14 +119,14 @@ class _LoginPageState extends State<LoginPage> {
               .signInWithEmailAndPassword(email: email, password: senha)
               .then((auth) {
             //tela principal
-            Modular.to.navigate("/");
+            Modular.to.navigate('/');
           });
         }
       } else {
-        print("Senha inválida");
+        print('Senha inválida');
       }
     } else {
-      print("Email inválido");
+      print('Email inválido');
     }
   }
 
@@ -173,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                                       fit: BoxFit.cover,
                                     )
                                   : Image.asset(
-                                      "imagens/perfil.png",
+                                      'imagens/perfil.png',
                                       width: 120,
                                       height: 120,
                                       fit: BoxFit.cover,
@@ -189,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                             visible: _cadastroUsuario,
                             child: OutlinedButton(
                                 onPressed: _selecionarImagem,
-                                child: Text("Selecionar foto")),
+                                child: Text('Selecionar foto')),
                           ),
 
                           SizedBox(
@@ -203,8 +203,8 @@ class _LoginPageState extends State<LoginPage> {
                               keyboardType: TextInputType.text,
                               controller: _controllerNome,
                               decoration: InputDecoration(
-                                  hintText: "Nome",
-                                  labelText: "Nome",
+                                  hintText: 'Nome',
+                                  labelText: 'Nome',
                                   suffixIcon: Icon(Icons.person_outline)),
                             ),
                           ),
@@ -214,8 +214,8 @@ class _LoginPageState extends State<LoginPage> {
                             keyboardType: TextInputType.emailAddress,
                             controller: _controllerEmail,
                             decoration: InputDecoration(
-                                hintText: "Email",
-                                labelText: "Email",
+                                hintText: 'Email',
+                                labelText: 'Email',
                                 suffixIcon: Icon(Icons.mail_outline)),
                           ),
 
@@ -225,8 +225,8 @@ class _LoginPageState extends State<LoginPage> {
                             controller: _controllerSenha,
                             obscureText: true,
                             decoration: InputDecoration(
-                                hintText: "Senha",
-                                labelText: "Senha",
+                                hintText: 'Senha',
+                                labelText: 'Senha',
                                 suffixIcon: Icon(Icons.lock_outline)),
                           ),
 
@@ -246,7 +246,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  _cadastroUsuario ? "Cadastro" : "Login",
+                                  _cadastroUsuario ? 'Cadastro' : 'Login',
                                   style: TextStyle(fontSize: 18),
                                 ),
                               ),
@@ -255,7 +255,7 @@ class _LoginPageState extends State<LoginPage> {
 
                           Row(
                             children: [
-                              Text("Login"),
+                              Text('Login'),
                               Switch(
                                   value: _cadastroUsuario,
                                   onChanged: (bool valor) {
@@ -263,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                                       _cadastroUsuario = valor;
                                     });
                                   }),
-                              Text("Cadastro"),
+                              Text('Cadastro'),
                             ],
                           )
                         ],

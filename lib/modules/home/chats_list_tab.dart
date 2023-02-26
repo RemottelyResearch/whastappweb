@@ -27,9 +27,9 @@ class _ChatsListTabState extends State<ChatsListTab> {
     User? usuarioLogado = _auth.currentUser;
     if (usuarioLogado != null) {
       String idUsuario = usuarioLogado.uid;
-      String? nome = usuarioLogado.displayName ?? "";
-      String? email = usuarioLogado.email ?? "";
-      String? urlImagem = usuarioLogado.photoURL ?? "";
+      String? nome = usuarioLogado.displayName ?? '';
+      String? email = usuarioLogado.email ?? '';
+      String? urlImagem = usuarioLogado.photoURL ?? '';
 
       _usuarioRemetente = UserEntity(
         idUsuario: idUsuario,
@@ -44,9 +44,9 @@ class _ChatsListTabState extends State<ChatsListTab> {
 
   _adicionarListenerConversas() {
     final stream = _firestore
-        .collection("conversas")
+        .collection('conversas')
         .doc(_usuarioRemetente.idUsuario)
-        .collection("ultimas_mensagens")
+        .collection('ultimas_mensagens')
         .snapshots();
 
     _streamConversas = stream.listen((dados) {
@@ -77,7 +77,7 @@ class _ChatsListTabState extends State<ChatsListTab> {
               return Center(
                 child: Column(
                   children: [
-                    Text("Carregando conversas"),
+                    Text('Carregando conversas'),
                     CircularProgressIndicator()
                   ],
                 ),
@@ -85,7 +85,7 @@ class _ChatsListTabState extends State<ChatsListTab> {
             case ConnectionState.active:
             case ConnectionState.done:
               if (snapshot.hasError) {
-                return Center(child: Text("Erro ao carregar os dados!"));
+                return Center(child: Text('Erro ao carregar os dados!'));
               } else {
                 QuerySnapshot querySnapshot = snapshot.data as QuerySnapshot;
                 List<DocumentSnapshot> listaConversas =
@@ -102,11 +102,11 @@ class _ChatsListTabState extends State<ChatsListTab> {
                   itemBuilder: (context, indice) {
                     DocumentSnapshot conversa = listaConversas[indice];
                     String urlImagemDestinatario =
-                        conversa["urlImagemDestinatario"];
-                    String nomeDestinatario = conversa["nomeDestinatario"];
-                    String emailDestinatario = conversa["emailDestinatario"];
-                    String ultimaMensagem = conversa["ultimaMensagem"];
-                    String idDestinatario = conversa["idDestinatario"];
+                        conversa['urlImagemDestinatario'];
+                    String nomeDestinatario = conversa['nomeDestinatario'];
+                    String emailDestinatario = conversa['emailDestinatario'];
+                    String ultimaMensagem = conversa['ultimaMensagem'];
+                    String idDestinatario = conversa['idDestinatario'];
 
                     UserEntity usuario = UserEntity(
                       idUsuario: idDestinatario,
@@ -117,7 +117,7 @@ class _ChatsListTabState extends State<ChatsListTab> {
 
                     return ListTile(
                       onTap: () {
-                        Modular.to.pushNamed("/chat", arguments: usuario);
+                        Modular.to.pushNamed('/chat', arguments: usuario);
                       },
                       leading: CircleAvatar(
                         radius: 25,

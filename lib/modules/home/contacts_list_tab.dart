@@ -18,17 +18,17 @@ class _ContactsListTabState extends State<ContactsListTab> {
   late String _idUsuarioLogado;
 
   Future<List<UserEntity>> _recuperarContatos() async {
-    final usuarioRef = _firestore.collection("usuarios");
+    final usuarioRef = _firestore.collection('usuarios');
     QuerySnapshot querySnapshot = await usuarioRef.get();
     List<UserEntity> listaUsuarios = [];
 
     for (DocumentSnapshot item in querySnapshot.docs) {
-      String idUsuario = item["idUsuario"];
+      String idUsuario = item['idUsuario'];
       if (idUsuario == _idUsuarioLogado) continue;
 
-      String email = item["email"];
-      String nome = item["nome"];
-      String urlImagem = item["urlImagem"];
+      String email = item['email'];
+      String nome = item['nome'];
+      String urlImagem = item['urlImagem'];
 
       UserEntity usuario = UserEntity(
         idUsuario: idUsuario,
@@ -66,7 +66,7 @@ class _ContactsListTabState extends State<ContactsListTab> {
               return Center(
                 child: Column(
                   children: [
-                    Text("Carregando contatos"),
+                    Text('Carregando contatos'),
                     CircularProgressIndicator()
                   ],
                 ),
@@ -74,7 +74,7 @@ class _ContactsListTabState extends State<ContactsListTab> {
             case ConnectionState.active:
             case ConnectionState.done:
               if (snapshot.hasError) {
-                return Center(child: Text("Erro ao carregar os dados!"));
+                return Center(child: Text('Erro ao carregar os dados!'));
               } else {
                 List<UserEntity>? listaUsuarios = snapshot.data;
                 if (listaUsuarios != null) {
@@ -90,7 +90,7 @@ class _ContactsListTabState extends State<ContactsListTab> {
                       UserEntity usuario = listaUsuarios[indice];
                       return ListTile(
                         onTap: () {
-                          Modular.to.pushNamed("/chat", arguments: usuario);
+                          Modular.to.pushNamed('/chat', arguments: usuario);
                         },
                         leading: CircleAvatar(
                           radius: 25,
@@ -109,7 +109,7 @@ class _ContactsListTabState extends State<ContactsListTab> {
                   );
                 }
 
-                return Center(child: Text("Nenhum contato encontrado!"));
+                return Center(child: Text('Nenhum contato encontrado!'));
               }
           }
         });

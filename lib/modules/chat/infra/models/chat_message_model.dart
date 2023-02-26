@@ -14,9 +14,9 @@ class ChatMessageModel {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      "idUsuario": this.idUsuario,
-      "texto": this.texto,
-      "data": this.data,
+      'idUsuario': this.idUsuario,
+      'texto': this.texto,
+      'data': this.data,
     };
 
     return map;

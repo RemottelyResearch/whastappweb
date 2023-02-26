@@ -8,6 +8,6 @@ class UserEntity {
     required this.idUsuario,
     required this.nome,
     required this.email,
-    this.urlImagem = "",
+    this.urlImagem = '',
   });
 }

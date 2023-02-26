@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("WhatsApp"),
+            title: Text('WhatsApp'),
             actions: [
               IconButton(onPressed: () {}, icon: Icon(Icons.search)),
               SizedBox(
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   onPressed: () async {
                     await _auth.signOut();
-                    Modular.to.navigate("/login");
+                    Modular.to.navigate('/login');
                   },
                   icon: Icon(Icons.logout)),
             ],
@@ -39,10 +39,10 @@ class _HomePageState extends State<HomePage> {
               labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               tabs: [
                 Tab(
-                  text: "Conversas",
+                  text: 'Conversas',
                 ),
                 Tab(
-                  text: "Contatos",
+                  text: 'Contatos',
                 ),
               ],
             ),

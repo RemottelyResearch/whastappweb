@@ -77,9 +77,9 @@ class _MessageListComponentState extends State<MessageListComponent> {
   _salvarConversa(ChatEntity conversa) {
     final chatEntityMap = ChatModel.fromEntity(conversa).toMap();
     _firestore
-        .collection("conversas")
+        .collection('conversas')
         .doc(conversa.idRemetente)
-        .collection("ultimas_mensagens")
+        .collection('ultimas_mensagens')
         .doc(conversa.idDestinatario)
         .set(chatEntityMap);
   }
@@ -88,7 +88,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
       String idRemetente, String idDestinatario, ChatMessageEntity mensagem) {
     final chatMessageMap = ChatMessageModel.fromEntity(mensagem).toMap();
     _firestore
-        .collection("mensagens")
+        .collection('mensagens')
         .doc(idRemetente)
         .collection(idDestinatario)
         .add(chatMessageMap);
@@ -98,10 +98,10 @@ class _MessageListComponentState extends State<MessageListComponent> {
 
   _adicionarListenerMensagens() {
     final stream = _firestore
-        .collection("mensagens")
+        .collection('mensagens')
         .doc(_usuarioRemetente.idUsuario)
         .collection(_usuarioDestinatario.idUsuario)
-        .orderBy("data", descending: true)
+        .orderBy('data', descending: true)
         .snapshots();
 
     _streamMensagens = stream.listen((dados) {
@@ -156,7 +156,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
       width: largura,
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("imagens/bg.png"), fit: BoxFit.cover)),
+              image: AssetImage('imagens/bg.png'), fit: BoxFit.cover)),
       child: Column(
         children: [
           //Listagem de mensagens
@@ -170,7 +170,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
                       child: Center(
                         child: Column(
                           children: [
-                            Text("Carregando dados"),
+                            Text('Carregando dados'),
                             CircularProgressIndicator()
                           ],
                         ),
@@ -179,7 +179,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
                   case ConnectionState.active:
                   case ConnectionState.done:
                     if (snapshot.hasError) {
-                      return Center(child: Text("Erro ao carregar os dados!"));
+                      return Center(child: Text('Erro ao carregar os dados!'));
                     } else {
                       QuerySnapshot querySnapshot =
                           snapshot.data as QuerySnapshot;
@@ -200,7 +200,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
                                 Color cor = Colors.white;
 
                                 if (_usuarioRemetente.idUsuario ==
-                                    mensagem["idUsuario"]) {
+                                    mensagem['idUsuario']) {
                                   alinhamento = Alignment.bottomRight;
                                   cor = Color(0xffd2ffa5);
                                 }
@@ -218,7 +218,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
                                             Radius.circular(8))),
                                     padding: EdgeInsets.all(16),
                                     margin: EdgeInsets.all(6),
-                                    child: Text(mensagem["texto"]),
+                                    child: Text(mensagem['texto']),
                                   ),
                                 );
                               }));
@@ -250,7 +250,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
                           child: TextField(
                         controller: _controllerMensagem,
                         decoration: InputDecoration(
-                            hintText: "Digite uma mensagem",
+                            hintText: 'Digite uma mensagem',
                             border: InputBorder.none),
                       )),
                       Icon(Icons.attach_file),

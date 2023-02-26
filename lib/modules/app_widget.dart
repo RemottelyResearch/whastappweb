@@ -9,7 +9,7 @@ class AppWidget extends StatelessWidget with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        title: "WhatsApp Web",
+        title: 'WhatsApp Web',
         debugShowCheckedModeBanner: false,
         theme: temaPadrao,
         routeInformationParser: Modular.routeInformationParser,
@@ -19,9 +19,9 @@ class AppWidget extends StatelessWidget with WidgetsBindingObserver {
           late String urlInicial;
 
           if (usuarioFirebase != null) {
-            urlInicial = "/";
+            urlInicial = '/';
           } else {
-            urlInicial = "/login";
+            urlInicial = '/login';
           }
 
           Modular.to.navigate(urlInicial);

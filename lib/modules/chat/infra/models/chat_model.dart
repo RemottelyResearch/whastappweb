@@ -19,12 +19,12 @@ class ChatModel {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      "idRemetente": this.idRemetente,
-      "idDestinatario": this.idDestinatario,
-      "ultimaMensagem": this.ultimaMensagem,
-      "nomeDestinatario": this.nomeDestinatario,
-      "emailDestinatario": this.emailDestinatario,
-      "urlImagemDestinatario": this.urlImagemDestinatario,
+      'idRemetente': this.idRemetente,
+      'idDestinatario': this.idDestinatario,
+      'ultimaMensagem': this.ultimaMensagem,
+      'nomeDestinatario': this.nomeDestinatario,
+      'emailDestinatario': this.emailDestinatario,
+      'urlImagemDestinatario': this.urlImagemDestinatario,
     };
 
     return map;

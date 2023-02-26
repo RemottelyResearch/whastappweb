@@ -10,15 +10,15 @@ class UserModel {
     required this.idUsuario,
     required this.nome,
     required this.email,
-    this.urlImagem = "",
+    this.urlImagem = '',
   });
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      "idUsuario": this.idUsuario,
-      "nome": this.nome,
-      "email": this.email,
-      "urlImagem": this.urlImagem,
+      'idUsuario': this.idUsuario,
+      'nome': this.nome,
+      'email': this.email,
+      'urlImagem': this.urlImagem,
     };
 
     return map;

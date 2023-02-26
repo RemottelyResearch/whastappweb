@@ -11,9 +11,9 @@ class ChatDatasourceImpl implements ChatDatasource {
     if (usuarioLogado == null) return null;
 
     String idUsuario = usuarioLogado.uid;
-    String? nome = usuarioLogado.displayName ?? "";
-    String? email = usuarioLogado.email ?? "";
-    String? urlImagem = usuarioLogado.photoURL ?? "";
+    String? nome = usuarioLogado.displayName ?? '';
+    String? email = usuarioLogado.email ?? '';
+    String? urlImagem = usuarioLogado.photoURL ?? '';
 
     return UserModel(
       idUsuario: idUsuario,
