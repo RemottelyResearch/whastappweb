@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:whatsappweb/modules/login/presenter/pages/login_page.dart';
+import 'package:whatsappweb/modules/login/login_module.dart';
 
 import 'chat/chat_module.dart';
 import 'home/home_page.dart';
@@ -14,9 +14,9 @@ class AppModule extends Module {
           '/',
           child: (context, args) => const HomePage(),
         ),
-        ChildRoute(
+        ModuleRoute<LoginModule>(
           '/login',
-          child: (context, args) => const LoginPage(),
+          module: LoginModule(),
         ),
         ModuleRoute<ChatModule>(
           '/chat',
