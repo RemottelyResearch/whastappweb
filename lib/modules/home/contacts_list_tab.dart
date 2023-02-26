@@ -90,8 +90,7 @@ class _ContactsListTabState extends State<ContactsListTab> {
                       UserEntity usuario = listaUsuarios[indice];
                       return ListTile(
                         onTap: () {
-                          Modular.to
-                              .pushNamed("/mensagens", arguments: usuario);
+                          Modular.to.pushNamed("/chat", arguments: usuario);
                         },
                         leading: CircleAvatar(
                           radius: 25,

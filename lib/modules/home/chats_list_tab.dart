@@ -117,7 +117,7 @@ class _ChatsListTabState extends State<ChatsListTab> {
 
                     return ListTile(
                       onTap: () {
-                        Modular.to.pushNamed("/mensagens", arguments: usuario);
+                        Modular.to.pushNamed("/chat", arguments: usuario);
                       },
                       leading: CircleAvatar(
                         radius: 25,
