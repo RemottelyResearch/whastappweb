@@ -23,18 +23,6 @@ class _ChatsListTabState extends State<ChatsListTab> {
       StreamController<QuerySnapshot>.broadcast();
   late StreamSubscription _streamConversas;
 
-  _adicionarListenerConversas() {
-    final stream = _firestore
-        .collection("conversas")
-        .doc(_usuarioRemetente.idUsuario)
-        .collection("ultimas_mensagens")
-        .snapshots();
-
-    _streamConversas = stream.listen((dados) {
-      _streamController.add(dados);
-    });
-  }
-
   _recuperarDadosIniciais() {
     User? usuarioLogado = _auth.currentUser;
     if (usuarioLogado != null) {
@@ -52,6 +40,18 @@ class _ChatsListTabState extends State<ChatsListTab> {
     }
 
     _adicionarListenerConversas();
+  }
+
+  _adicionarListenerConversas() {
+    final stream = _firestore
+        .collection("conversas")
+        .doc(_usuarioRemetente.idUsuario)
+        .collection("ultimas_mensagens")
+        .snapshots();
+
+    _streamConversas = stream.listen((dados) {
+      _streamController.add(dados);
+    });
   }
 
   @override

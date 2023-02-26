@@ -63,12 +63,12 @@ class _MessageListComponentState extends State<MessageListComponent> {
       //Salvar mensagem para destinatário
       _salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
       ChatEntity conversaDestinatario = ChatEntity(
-        emailDestinatario: _usuarioDestinatario.email,
+        emailDestinatario: _usuarioRemetente.email,
         idDestinatario: idUsuarioRemetente,
         idRemetente: idUsuarioDestinatario,
-        nomeDestinatario: _usuarioDestinatario.nome,
+        nomeDestinatario: _usuarioRemetente.nome,
         ultimaMensagem: mensagem.texto,
-        urlImagemDestinatario: _usuarioDestinatario.urlImagem,
+        urlImagemDestinatario: _usuarioRemetente.urlImagem,
       );
       _salvarConversa(conversaDestinatario);
     }
