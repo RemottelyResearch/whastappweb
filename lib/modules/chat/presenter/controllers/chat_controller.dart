@@ -103,9 +103,6 @@ class ChatController {
 
     streamMensagens = stream.listen((dados) {
       streamController.add(dados);
-      // Timer(Duration(milliseconds: 300), () {
-      //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      // });
     });
   }
 
@@ -121,7 +118,6 @@ class ChatController {
     recuperarMensagens();
   }
 
-  @override
   void dispose() {
     scrollController.dispose();
     streamMensagens.cancel();
