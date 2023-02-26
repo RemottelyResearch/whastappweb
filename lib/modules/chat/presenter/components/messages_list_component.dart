@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/app_colors.dart';
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
-import 'package:whatsappweb/core/infra/repositories/chat_repository.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_message_entity.dart';
 import 'package:whatsappweb/modules/chat/infra/models/chat_message_model.dart';
 import 'package:whatsappweb/modules/chat/infra/models/chat_model.dart';
+import 'package:whatsappweb/modules/chat/presenter/controllers/chat_controller.dart';
 
 class MessageListComponent extends StatefulWidget {
   final UserEntity usuarioRemetente;
@@ -121,7 +121,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
 
   _atualizarListenerMensagens() {
     UserEntity? usuarioDestinatario =
-        Modular.get<ChatRepository>().usuarioDestinatario;
+        Modular.get<ChatController>().usuarioDestinatario;
 
     if (usuarioDestinatario != null) {
       _usuarioDestinatario = usuarioDestinatario;
