@@ -6,16 +6,18 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_message_entity.dart';
+import 'package:whatsappweb/modules/chat/domain/usecases/remote_save_chat_status_usecase_impl.dart';
 import 'package:whatsappweb/modules/chat/infra/models/chat_message_model.dart';
-import 'package:whatsappweb/modules/chat/infra/models/chat_model.dart';
 
-import '../../domain/usecases/remote_load_remetente_usecase.dart';
+import '../../domain/usecases/remote_load_logged_user_data_usecase.dart';
 
 class ChatController {
   final RemoteLoadLoggedUserDataUseCase remoteLoadLoggedUserData;
+  final RemoteSaveChatStatusUseCaseImpl remoteSaveChatStatus;
 
   ChatController({
     required this.remoteLoadLoggedUserData,
+    required this.remoteSaveChatStatus,
   });
 
   UserEntity? usuarioDestinatario;
@@ -23,6 +25,10 @@ class ChatController {
 
   loadLoggedUserData() {
     usuarioRemetente = remoteLoadLoggedUserData.call();
+  }
+
+  _saveChatStatus(ChatEntity chat) {
+    remoteSaveChatStatus.call(chat);
   }
 
   FirebaseFirestore _firestore = Modular.get<FirebaseFirestore>();
@@ -55,7 +61,7 @@ class ChatController {
         ultimaMensagem: mensagem.texto,
         urlImagemDestinatario: usuarioDestinatario!.urlImagem,
       );
-      _salvarConversa(conversaRementente);
+      _saveChatStatus(conversaRementente);
 
       //Salvar mensagem para destinatário
       _salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
@@ -67,18 +73,8 @@ class ChatController {
         ultimaMensagem: mensagem.texto,
         urlImagemDestinatario: usuarioRemetente!.urlImagem,
       );
-      _salvarConversa(conversaDestinatario);
+      _saveChatStatus(conversaDestinatario);
     }
-  }
-
-  _salvarConversa(ChatEntity conversa) {
-    final chatEntityMap = ChatModel.fromEntity(conversa).toMap();
-    _firestore
-        .collection('conversas')
-        .doc(conversa.idRemetente)
-        .collection('ultimas_mensagens')
-        .doc(conversa.idDestinatario)
-        .set(chatEntityMap);
   }
 
   _salvarMensagem(

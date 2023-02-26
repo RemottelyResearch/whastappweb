@@ -1,0 +1,1 @@
+enum EndConnectionStatusType { successed, failed }
