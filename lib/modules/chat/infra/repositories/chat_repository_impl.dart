@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/repositories/chat_repository.dart';
 import 'package:whatsappweb/modules/chat/external/datasources/chat_datasource_impl.dart';
@@ -15,5 +16,15 @@ class ChatRepositoryImpl implements ChatRepository {
   void remoteSetChatStatus(ChatModel chat) {
     chatDatasource.remotePutChatStatus(chat);
     return;
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> remoteStreamMessages({
+    required String idLoggedUser,
+    required String idRecipientUser,
+  }) {
+    return chatDatasource.remoteSnapshotMessages(
+      idLoggedUser: idLoggedUser,
+      idRecipientUser: idRecipientUser,
+    );
   }
 }

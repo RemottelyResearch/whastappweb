@@ -18,7 +18,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
   void initState() {
     super.initState();
     chatController = Modular.get<ChatController>();
-    chatController.recuperarMensagens();
+    chatController.adicionarListenerMensagens();
   }
 
   @override

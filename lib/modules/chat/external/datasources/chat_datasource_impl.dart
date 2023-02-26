@@ -35,4 +35,16 @@ class ChatDatasourceImpl implements ChatDatasource {
         .doc(chat.idDestinatario)
         .set(chatMap);
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> remoteSnapshotMessages({
+    required String idLoggedUser,
+    required String idRecipientUser,
+  }) {
+    return firestore
+        .collection('mensagens')
+        .doc(idLoggedUser)
+        .collection(idRecipientUser)
+        .orderBy('data', descending: true)
+        .snapshots();
+  }
 }

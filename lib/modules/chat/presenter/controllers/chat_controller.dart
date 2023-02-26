@@ -6,30 +6,56 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_message_entity.dart';
-import 'package:whatsappweb/modules/chat/domain/usecases/remote_save_chat_status_usecase_impl.dart';
+import 'package:whatsappweb/modules/chat/domain/usecases/remote_save_chat_status_usecase.dart';
+import 'package:whatsappweb/modules/chat/domain/usecases/remote_stream_messages_usecase.dart';
 import 'package:whatsappweb/modules/chat/infra/models/chat_message_model.dart';
 
 import '../../domain/usecases/remote_load_logged_user_data_usecase.dart';
 
 class ChatController {
   final RemoteLoadLoggedUserDataUseCase remoteLoadLoggedUserData;
-  final RemoteSaveChatStatusUseCaseImpl remoteSaveChatStatus;
+  final RemoteSaveChatStatusUseCase remoteSaveChatStatus;
+  final RemoteStreamMessagesUseCase remoteStreamMessages;
 
   ChatController({
     required this.remoteLoadLoggedUserData,
     required this.remoteSaveChatStatus,
+    required this.remoteStreamMessages,
   });
 
   UserEntity? usuarioDestinatario;
   UserEntity? usuarioRemetente;
 
+  /// >>> Finalizados
+
   loadLoggedUserData() {
     usuarioRemetente = remoteLoadLoggedUserData.call();
+  }
+
+  adicionarListenerMensagens() {
+    final stream = remoteStreamMessages.call(
+      idLoggedUser: usuarioRemetente!.idUsuario,
+      idRecipientUser: usuarioDestinatario!.idUsuario,
+    );
+
+    streamMensagens = stream.listen((dados) {
+      streamController.add(dados);
+    });
+  }
+
+  atualizarListenerMensagens() {
+    UserEntity? usuarioDestinatario =
+        Modular.get<ChatController>().usuarioDestinatario;
+
+    usuarioDestinatario = usuarioDestinatario;
+    adicionarListenerMensagens();
   }
 
   _saveChatStatus(ChatEntity chat) {
     remoteSaveChatStatus.call(chat);
   }
+
+  /// <<< Finalizados
 
   FirebaseFirestore _firestore = Modular.get<FirebaseFirestore>();
 
@@ -87,31 +113,6 @@ class ChatController {
         .add(chatMessageMap);
 
     controllerMensagem.clear();
-  }
-
-  _adicionarListenerMensagens() {
-    final stream = _firestore
-        .collection('mensagens')
-        .doc(usuarioRemetente!.idUsuario)
-        .collection(usuarioDestinatario!.idUsuario)
-        .orderBy('data', descending: true)
-        .snapshots();
-
-    streamMensagens = stream.listen((dados) {
-      streamController.add(dados);
-    });
-  }
-
-  recuperarMensagens() {
-    _adicionarListenerMensagens();
-  }
-
-  atualizarListenerMensagens() {
-    UserEntity? usuarioDestinatario =
-        Modular.get<ChatController>().usuarioDestinatario;
-
-    usuarioDestinatario = usuarioDestinatario;
-    recuperarMensagens();
   }
 
   void dispose() {
