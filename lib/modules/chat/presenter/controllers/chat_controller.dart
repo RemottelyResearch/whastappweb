@@ -42,8 +42,6 @@ class ChatController {
     streamMensagens.cancel();
   }
 
-  /// >>> Finalizados
-
   void loadLoggedUserData() {
     usuarioRemetente = remoteLoadLoggedUserData.call();
   }
@@ -133,8 +131,6 @@ class ChatController {
       await _saveChatStatus(conversaDestinatario);
     }
   }
-
-  /// <<< Finalizados
 }
 
 class RemoteSaveMessageUseCaseImpl implements RemoteSaveMessageUseCase {

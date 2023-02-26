@@ -61,12 +61,12 @@ class RemoteLoginWithEmailAndPasswordUseCaseImpl {
 
   RemoteLoginWithEmailAndPasswordUseCaseImpl({required this.signInRepository});
 
-  Future<UserCredential>? call({
+  Future<UserCredential?> call({
     required String email,
     required String password,
-  }) {
+  }) async {
     try {
-      final userCredentials = signInRepository.loginWithEmailAndPassword(
+      final userCredentials = await signInRepository.loginWithEmailAndPassword(
           email: email, password: password);
 
       return userCredentials;
@@ -74,7 +74,7 @@ class RemoteLoginWithEmailAndPasswordUseCaseImpl {
       log('[ERROR ON: RemoteLoginWithEmailAndPasswordUseCaseImpl]' +
           error.toString());
     }
-    return null;
+    return Future.value(null);
   }
 }
 
