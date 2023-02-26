@@ -14,8 +14,8 @@ class ChatModule extends Module {
             (_) => ChatRepositoryImpl(Modular.get<ChatDatasourceImpl>())),
         Bind.factory<RemoteLoadRemetenteUseCaseImpl>((_) =>
             RemoteLoadRemetenteUseCaseImpl(Modular.get<ChatRepositoryImpl>())),
-        Bind.singleton<ChatController>((_) => ChatController(
-            remoteLoadRemetentUseCase:
+        Bind.factory<ChatController>((_) => ChatController(
+            remoteLoadRemetenteUseCase:
                 Modular.get<RemoteLoadRemetenteUseCaseImpl>())),
       ];
 
