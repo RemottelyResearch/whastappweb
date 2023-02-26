@@ -14,25 +14,25 @@ class ChatDatasourceImpl implements ChatDatasource {
   });
 
   UserModel? remoteFetchLoggedUserData() {
-    User? _loggedUserData = auth.currentUser;
+    User? loggedUserData = auth.currentUser;
 
-    if (_loggedUserData == null) return null;
+    if (loggedUserData == null) return null;
 
     return UserModel(
-      idUsuario: _loggedUserData.uid,
-      nome: _loggedUserData.displayName ?? '',
-      email: _loggedUserData.email ?? '',
-      urlImagem: _loggedUserData.photoURL ?? '',
+      idUsuario: loggedUserData.uid,
+      nome: loggedUserData.displayName ?? '',
+      email: loggedUserData.email ?? '',
+      urlImagem: loggedUserData.photoURL ?? '',
     );
   }
 
   void remotePutChatStatus(ChatModel chat) {
-    final _chatMap = chat.toMap();
+    final chatMap = chat.toMap();
     firestore
         .collection('conversas')
         .doc(chat.idRemetente)
         .collection('ultimas_mensagens')
         .doc(chat.idDestinatario)
-        .set(_chatMap);
+        .set(chatMap);
   }
 }
