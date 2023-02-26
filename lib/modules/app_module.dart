@@ -4,7 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/domain/usecases/remote_load_logged_user_data_usecase_impl.dart';
 import 'package:whatsappweb/core/external/datasources/user_datasource_impl.dart';
 import 'package:whatsappweb/core/infra/repositories/user_repository_impl.dart';
-import 'package:whatsappweb/modules/login/login_module.dart';
+import 'package:whatsappweb/modules/sign_in/sign_in_module.dart';
+import 'package:whatsappweb/modules/sign_up/sign_up_module.dart';
 
 import 'chat/chat_module.dart';
 import 'home/home_page.dart';
@@ -30,11 +31,15 @@ class AppModule extends Module {
           '/',
           child: (context, args) => const HomePage(),
         ),
-        ModuleRoute<LoginModule>(
-          '/login',
-          module: LoginModule(),
+        ModuleRoute(
+          '/sign-in',
+          module: SignInModule(),
         ),
-        ModuleRoute<ChatModule>(
+        ModuleRoute(
+          '/sign-up',
+          module: SignUpModule(),
+        ),
+        ModuleRoute(
           '/chat',
           module: ChatModule(),
         ),

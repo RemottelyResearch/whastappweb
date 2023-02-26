@@ -22,7 +22,7 @@ class AppWidget extends StatelessWidget with WidgetsBindingObserver {
           if (usuarioFirebase != null) {
             urlInicial = '/';
           } else {
-            urlInicial = '/login';
+            urlInicial = '/sign-in';
           }
 
           Modular.to.navigate(urlInicial);

@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   onPressed: () async {
                     await _auth.signOut();
-                    Modular.to.navigate('/login');
+                    Modular.to.navigate('/sign-in');
                   },
                   icon: Icon(Icons.logout)),
             ],
