@@ -15,7 +15,7 @@ class ChatsListTab extends StatefulWidget {
 }
 
 class _ChatsListTabState extends State<ChatsListTab> {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseFirestore _firestore = Modular.get<FirebaseFirestore>();
   FirebaseAuth _auth = Modular.get<FirebaseAuth>();
 
   late UserEntity _usuarioRemetente;

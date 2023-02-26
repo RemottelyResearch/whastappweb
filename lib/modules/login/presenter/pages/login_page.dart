@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _cadastroUsuario = false;
   FirebaseAuth _auth = Modular.get<FirebaseAuth>();
   FirebaseStorage _storage = FirebaseStorage.instance;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseFirestore _firestore = Modular.get<FirebaseFirestore>();
   Uint8List? _arquivoImagemSelecionado;
 
   // _verificarUsuarioLogado(){

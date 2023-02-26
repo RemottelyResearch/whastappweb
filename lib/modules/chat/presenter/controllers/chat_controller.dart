@@ -25,7 +25,7 @@ class ChatController {
     usuarioRemetente = remoteLoadLoggedUserData.call();
   }
 
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseFirestore _firestore = Modular.get<FirebaseFirestore>();
 
   TextEditingController controllerMensagem = TextEditingController();
   ScrollController scrollController = ScrollController();
