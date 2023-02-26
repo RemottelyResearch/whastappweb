@@ -1,15 +1,18 @@
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
-import 'package:whatsappweb/modules/chat/domain/repositories/chat_repository.dart';
+
+import '../../domain/usecases/remote_load_remetente_usecase.dart';
 
 class ChatController {
-  final ChatRepository chatRepository;
+  final RemoteLoadRemetenteUseCase remoteLoadRemetentUseCase;
 
-  ChatController(this.chatRepository);
+  ChatController({
+    required this.remoteLoadRemetentUseCase,
+  });
 
   UserEntity? usuarioDestinatario;
   UserEntity? usuarioRemetente;
 
   recuperarDadosIniciais() {
-    usuarioRemetente = chatRepository.remoteGetRemetente();
+    usuarioRemetente = remoteLoadRemetentUseCase.call();
   }
 }

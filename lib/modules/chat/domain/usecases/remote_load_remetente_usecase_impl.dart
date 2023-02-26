@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
-import 'package:whatsappweb/modules/chat/domain/usecases/chat_repository.dart';
+import 'package:whatsappweb/modules/chat/domain/usecases/remote_load_remetente_usecase.dart';
 import 'package:whatsappweb/modules/chat/infra/repositories/chat_repository_impl.dart';
 
-class RemoteLoadRemetentUseCaseImpl implements RemoteLoadRemetenteUseCase {
+class RemoteLoadRemetenteUseCaseImpl implements RemoteLoadRemetenteUseCase {
   final ChatRepositoryImpl chatRepository;
 
-  const RemoteLoadRemetentUseCaseImpl(this.chatRepository);
+  const RemoteLoadRemetenteUseCaseImpl(this.chatRepository);
 
   UserEntity? call() {
     try {
