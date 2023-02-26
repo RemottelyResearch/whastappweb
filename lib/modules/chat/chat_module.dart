@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/core/domain/usecases/remote_load_logged_user_data_usecase_impl.dart';
 import 'package:whatsappweb/modules/chat/domain/usecases/remote_save_chat_status_usecase_impl.dart';
+import 'package:whatsappweb/modules/chat/domain/usecases/remote_save_message_usecase_impl.dart';
 import 'package:whatsappweb/modules/chat/domain/usecases/remote_stream_messages_usecase_impl.dart';
 import 'package:whatsappweb/modules/chat/external/datasources/chat_datasource_impl.dart';
 import 'package:whatsappweb/modules/chat/infra/repositories/chat_repository_impl.dart';

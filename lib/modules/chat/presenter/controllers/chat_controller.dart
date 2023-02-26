@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,9 @@ import 'package:whatsappweb/core/domain/usecases/remote_load_logged_user_data_us
 import 'package:whatsappweb/modules/chat/domain/entities/chat_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/entities/chat_message_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/helpers/end_connection_status_type.dart';
-import 'package:whatsappweb/modules/chat/domain/repositories/chat_repository.dart';
 import 'package:whatsappweb/modules/chat/domain/usecases/remote_save_chat_status_usecase.dart';
+import 'package:whatsappweb/modules/chat/domain/usecases/remote_save_message_usecase.dart';
 import 'package:whatsappweb/modules/chat/domain/usecases/remote_stream_messages_usecase.dart';
-import 'package:whatsappweb/modules/chat/infra/models/chat_message_model.dart';
 
 class ChatController {
   final RemoteLoadLoggedUserDataUseCase remoteLoadLoggedUserData;
@@ -70,7 +68,11 @@ class ChatController {
   }
 
   Future<void> _saveChatStatus(ChatEntity chat) async {
-    await remoteSaveChatStatus.call(chat);
+    final status = await remoteSaveChatStatus.call(chat);
+    if (status == EndConnectionStatusType.failed) {
+      // TODO: show some error
+    }
+    return;
   }
 
   Future<void> _saveMessage({
@@ -79,11 +81,15 @@ class ChatController {
     required ChatMessageEntity message,
   }) async {
     // chamar caso de uso
-    await remoteSaveMessage.call(
+    final status = await remoteSaveMessage.call(
       idLoggedUser: idLoggedUser,
       idRecipient: idRecipient,
       message: message,
     );
+    if (status == EndConnectionStatusType.failed) {
+      // TODO: show some error
+      return;
+    }
     controllerMensagem.clear();
   }
 
@@ -131,36 +137,4 @@ class ChatController {
       await _saveChatStatus(conversaDestinatario);
     }
   }
-}
-
-class RemoteSaveMessageUseCaseImpl implements RemoteSaveMessageUseCase {
-  final ChatRepository chatRepository;
-
-  RemoteSaveMessageUseCaseImpl({required this.chatRepository});
-
-  @override
-  Future<EndConnectionStatusType> call(
-      {required String idLoggedUser,
-      required String idRecipient,
-      required ChatMessageEntity message}) async {
-    try {
-      await chatRepository.putMessage(
-        idLoggedUser: idLoggedUser,
-        idRecipient: idRecipient,
-        message: ChatMessageModel.fromEntity(message),
-      );
-      return EndConnectionStatusType.successed;
-    } catch (error) {
-      log('[ERROR ON: RemoteSaveMessageUseCaseImpl]' + error.toString());
-      return EndConnectionStatusType.failed;
-    }
-  }
-}
-
-abstract class RemoteSaveMessageUseCase {
-  Future<EndConnectionStatusType> call({
-    required String idLoggedUser,
-    required String idRecipient,
-    required ChatMessageEntity message,
-  });
 }
