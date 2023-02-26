@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/modules/login/login_module.dart';
 
@@ -6,7 +7,9 @@ import 'home/home_page.dart';
 
 class AppModule extends Module {
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+        Bind.factory<FirebaseAuth>((_) => FirebaseAuth.instance),
+      ];
 
   @override
   List<ModularRoute> get routes => [

@@ -7,7 +7,7 @@ class ChatRepositoryImpl implements ChatRepository {
 
   const ChatRepositoryImpl(this.chatDatasource);
 
-  UserEntity? remoteGetRemetente() {
-    return chatDatasource.remoteFetchRemetente()?.toEntity();
+  UserEntity? remoteGetLoggedUserData() {
+    return chatDatasource.remoteFetchLoggedUserData()?.toEntity();
   }
 }

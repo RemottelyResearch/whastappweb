@@ -13,7 +13,7 @@ class ContactsListTab extends StatefulWidget {
 }
 
 class _ContactsListTabState extends State<ContactsListTab> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth _auth = Modular.get<FirebaseAuth>();
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String _idUsuarioLogado;
 

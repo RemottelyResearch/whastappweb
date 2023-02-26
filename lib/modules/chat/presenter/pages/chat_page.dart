@@ -22,7 +22,7 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     chatController = Modular.get<ChatController>();
     chatController.usuarioDestinatario = widget.usuarioDestinatario;
-    chatController.recuperarRemetente();
+    chatController.loadLoggedUserData();
   }
 
   @override

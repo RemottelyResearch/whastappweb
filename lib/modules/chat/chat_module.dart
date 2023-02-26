@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:whatsappweb/core/domain/entities/user_entity.dart';
 import 'package:whatsappweb/modules/chat/domain/usecases/remote_load_remetente_usecase_impl.dart';
@@ -9,14 +10,16 @@ import 'package:whatsappweb/modules/chat/presenter/pages/chat_page.dart';
 class ChatModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.factory<ChatDatasourceImpl>((_) => ChatDatasourceImpl()),
+        Bind.factory<ChatDatasourceImpl>(
+            (_) => ChatDatasourceImpl(Modular.get<FirebaseAuth>())),
         Bind.factory<ChatRepositoryImpl>(
             (_) => ChatRepositoryImpl(Modular.get<ChatDatasourceImpl>())),
-        Bind.factory<RemoteLoadRemetenteUseCaseImpl>((_) =>
-            RemoteLoadRemetenteUseCaseImpl(Modular.get<ChatRepositoryImpl>())),
+        Bind.factory<RemoteLoadLoggedUserDataUseCaseImpl>((_) =>
+            RemoteLoadLoggedUserDataUseCaseImpl(
+                Modular.get<ChatRepositoryImpl>())),
         Bind.singleton<ChatController>((_) => ChatController(
-            remoteLoadRemetenteUseCase:
-                Modular.get<RemoteLoadRemetenteUseCaseImpl>())),
+            remoteLoadLoggedUserData:
+                Modular.get<RemoteLoadLoggedUserDataUseCaseImpl>())),
       ];
 
   @override

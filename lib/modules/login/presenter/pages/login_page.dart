@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _controllerSenha =
       TextEditingController(text: '1234567');
   bool _cadastroUsuario = false;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth _auth = Modular.get<FirebaseAuth>();
   FirebaseStorage _storage = FirebaseStorage.instance;
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Uint8List? _arquivoImagemSelecionado;

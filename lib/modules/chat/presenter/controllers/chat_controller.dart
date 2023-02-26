@@ -12,17 +12,17 @@ import 'package:whatsappweb/modules/chat/infra/models/chat_model.dart';
 import '../../domain/usecases/remote_load_remetente_usecase.dart';
 
 class ChatController {
-  final RemoteLoadRemetenteUseCase remoteLoadRemetenteUseCase;
+  final RemoteLoadLoggedUserDataUseCase remoteLoadLoggedUserData;
 
   ChatController({
-    required this.remoteLoadRemetenteUseCase,
+    required this.remoteLoadLoggedUserData,
   });
 
   UserEntity? usuarioDestinatario;
   UserEntity? usuarioRemetente;
 
-  recuperarRemetente() {
-    usuarioRemetente = remoteLoadRemetenteUseCase.call();
+  loadLoggedUserData() {
+    usuarioRemetente = remoteLoadLoggedUserData.call();
   }
 
   FirebaseFirestore _firestore = FirebaseFirestore.instance;

@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth _auth = Modular.get<FirebaseAuth>();
 
   @override
   Widget build(BuildContext context) {
