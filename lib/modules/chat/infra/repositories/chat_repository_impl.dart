@@ -8,8 +8,8 @@ class ChatRepositoryImpl implements ChatRepository {
 
   const ChatRepositoryImpl(this.chatDatasource);
 
-  void remoteSetChatStatus(ChatModel chat) {
-    chatDatasource.remotePutChatStatus(chat);
+  void remotePutChatStatus(ChatModel chat) {
+    chatDatasource.remoteSetChatStatus(chat);
     return;
   }
 

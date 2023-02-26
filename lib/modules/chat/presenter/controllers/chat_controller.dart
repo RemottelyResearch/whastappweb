@@ -111,6 +111,11 @@ class ChatController {
     }
   }
 
+  // 1. Page > Flutter Widget
+  // FEITO
+  // 2. Controller > Triple
+  // FEITO
+  // 3. UseCase
   _salvarMensagem(
       String idRemetente, String idDestinatario, ChatMessageEntity mensagem) {
     final chatMessageMap = ChatMessageModel.fromEntity(mensagem).toMap();
@@ -122,4 +127,6 @@ class ChatController {
 
     controllerMensagem.clear();
   }
+  // 4. Repository
+  // 5. Datasource
 }

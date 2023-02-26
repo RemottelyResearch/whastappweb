@@ -21,7 +21,7 @@ class RemoteStreamMessagesUseCaseImpl implements RemoteStreamMessagesUseCase {
 
       return stream;
     } catch (error) {
-      log('[ERROR ON: RemoteLoadLoggedUserDataUseCaseImpl]' + error.toString());
+      log('[ERROR ON: RemoteStreamMessagesUseCaseImpl]' + error.toString());
     }
     return null;
   }

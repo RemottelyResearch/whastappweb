@@ -9,7 +9,7 @@ class ChatDatasourceImpl implements ChatDatasource {
     required this.firestore,
   });
 
-  void remotePutChatStatus(ChatModel chat) {
+  void remoteSetChatStatus(ChatModel chat) {
     final chatMap = chat.toMap();
     firestore
         .collection('conversas')

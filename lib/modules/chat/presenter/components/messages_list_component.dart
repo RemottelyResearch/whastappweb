@@ -76,7 +76,7 @@ class _MessageListComponentState extends State<MessageListComponent> {
                               physics: BouncingScrollPhysics(),
                               reverse: true,
                               controller: chatController.scrollController,
-                              itemCount: querySnapshot.docs.length,
+                              itemCount: listaMensagens.length,
                               itemBuilder: (context, indice) {
                                 DocumentSnapshot mensagem =
                                     listaMensagens[indice];
